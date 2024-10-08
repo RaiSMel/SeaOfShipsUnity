@@ -411,7 +411,7 @@ TextureImporter:
       213: 5413734772301879229
     second: MedievalButton_135
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -428,10 +428,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -440,12 +442,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -463,11 +465,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -479,6 +485,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -491,6 +498,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -503,6 +511,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -515,6 +524,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -527,6 +537,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -3398,9 +3409,145 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      MedievalButton_0: 6077646072594295933
+      MedievalButton_1: 7913582804895200819
+      MedievalButton_10: -5626007008613303649
+      MedievalButton_100: -546737152756277432
+      MedievalButton_101: -8859619920703786075
+      MedievalButton_102: 791319102952009418
+      MedievalButton_103: -2075806161435566667
+      MedievalButton_104: -5343830379997153599
+      MedievalButton_105: 4530632850497811705
+      MedievalButton_106: -5338100568849310258
+      MedievalButton_107: -4997962632235507308
+      MedievalButton_108: 4216868760239375866
+      MedievalButton_109: 2970294608648110502
+      MedievalButton_11: 6906907873334993267
+      MedievalButton_110: -5093951906347843194
+      MedievalButton_111: -1421280793768166909
+      MedievalButton_112: 3358621514761410853
+      MedievalButton_113: -8245336755600780168
+      MedievalButton_114: 2741731557018968925
+      MedievalButton_115: 4742392958403016912
+      MedievalButton_116: -876575984182429017
+      MedievalButton_117: 4906223250112475651
+      MedievalButton_118: 3435284768452813597
+      MedievalButton_119: -2048287921643745233
+      MedievalButton_12: -7459254837325933037
+      MedievalButton_120: 3469089039025236348
+      MedievalButton_121: 8069090475493784327
+      MedievalButton_122: -8578526131519811797
+      MedievalButton_123: -8965153897228852812
+      MedievalButton_124: 3347268654838138445
+      MedievalButton_125: 424217818480410384
+      MedievalButton_126: -5357632425926229490
+      MedievalButton_127: 5513998999683443746
+      MedievalButton_128: 5665809880365075679
+      MedievalButton_129: -8235618249434670405
+      MedievalButton_13: 8383994943491433541
+      MedievalButton_130: 5623350762291516550
+      MedievalButton_131: 6200628217948080232
+      MedievalButton_132: 8285485904971591278
+      MedievalButton_133: 4813390120170248823
+      MedievalButton_134: 7926940548043153860
+      MedievalButton_135: 5413734772301879229
+      MedievalButton_14: -3671372558794544250
+      MedievalButton_15: 6562969540334714293
+      MedievalButton_16: -6288814871701792222
+      MedievalButton_17: 283822536599432912
+      MedievalButton_18: -7275052479296117267
+      MedievalButton_19: -6930371352564823950
+      MedievalButton_2: -936450430449991397
+      MedievalButton_20: 8506797294801231903
+      MedievalButton_21: 5616292038947911817
+      MedievalButton_22: -7411468738227083215
+      MedievalButton_23: -3492318566930819820
+      MedievalButton_24: 9106920798500107217
+      MedievalButton_25: 8600859976308219930
+      MedievalButton_26: -6541058178453733827
+      MedievalButton_27: 5063393928797151311
+      MedievalButton_28: 3988575708969909640
+      MedievalButton_29: -2011988517922147392
+      MedievalButton_3: -7625563860135209514
+      MedievalButton_30: 3331413200844639230
+      MedievalButton_31: 705403182700708156
+      MedievalButton_32: 8464370506742364179
+      MedievalButton_33: 2503844348029695076
+      MedievalButton_34: 3034670722294237210
+      MedievalButton_35: -5299846597494414481
+      MedievalButton_36: -5677431750775381648
+      MedievalButton_37: 9133667576940432837
+      MedievalButton_38: -7397170832246093579
+      MedievalButton_39: -4447187402549054158
+      MedievalButton_4: -5486667392931499504
+      MedievalButton_40: 1251531609007384765
+      MedievalButton_41: -8406090278493452599
+      MedievalButton_42: -5334563101914323370
+      MedievalButton_43: -2887132120045637343
+      MedievalButton_44: -7173360988922580154
+      MedievalButton_45: -8549447697306792918
+      MedievalButton_46: 8189221029115826972
+      MedievalButton_47: 1467664864138746978
+      MedievalButton_48: -8269304410413623582
+      MedievalButton_49: -8352028217376141432
+      MedievalButton_5: 1316674755701705050
+      MedievalButton_50: -8748409453826080721
+      MedievalButton_51: 3028518460856450359
+      MedievalButton_52: 8025741010184913872
+      MedievalButton_53: 4434791515228386284
+      MedievalButton_54: -3218288475054301860
+      MedievalButton_55: -6631336249664247711
+      MedievalButton_56: -3400472703668000683
+      MedievalButton_57: 1259437843556430662
+      MedievalButton_58: -1632935213270705543
+      MedievalButton_59: -8096756256842165650
+      MedievalButton_6: 1016751869207295493
+      MedievalButton_60: 8089097966903581561
+      MedievalButton_61: -5512400233525993428
+      MedievalButton_62: 3353904723274685284
+      MedievalButton_63: 5777626745267187643
+      MedievalButton_64: -952971698741449166
+      MedievalButton_65: -9045458174828660747
+      MedievalButton_66: -3097143503244917377
+      MedievalButton_67: 8737318945683100154
+      MedievalButton_68: 7959773578140626395
+      MedievalButton_69: 6770587796282151919
+      MedievalButton_7: 8826869197404164618
+      MedievalButton_70: -6984732207346345879
+      MedievalButton_71: 8037859793108448533
+      MedievalButton_72: -3888160744628523377
+      MedievalButton_73: 9044191797805170488
+      MedievalButton_74: 178382818470474303
+      MedievalButton_75: 5415961444630525484
+      MedievalButton_76: -8467699050381951553
+      MedievalButton_77: -1406321428741909278
+      MedievalButton_78: -714084769562505762
+      MedievalButton_79: -4673556058627011756
+      MedievalButton_8: -239851378524986840
+      MedievalButton_80: -5671800357314689432
+      MedievalButton_81: -7649735496001291172
+      MedievalButton_82: -8847781313272477686
+      MedievalButton_83: 4037585219068635271
+      MedievalButton_84: 4986234799549643751
+      MedievalButton_85: 2146564304439125491
+      MedievalButton_86: -7976090141878923501
+      MedievalButton_87: 8636786838449333955
+      MedievalButton_88: -8983588923132722435
+      MedievalButton_89: 9050551466280807092
+      MedievalButton_9: -7308575822960342377
+      MedievalButton_90: 6387136930682060245
+      MedievalButton_91: 9119116984935005520
+      MedievalButton_92: -1691811061032903343
+      MedievalButton_93: -1481662579791871304
+      MedievalButton_94: -5363186860159192590
+      MedievalButton_95: 924324601034304122
+      MedievalButton_96: -3390557903634418911
+      MedievalButton_97: -5971880950124843392
+      MedievalButton_98: -6205660210663895785
+      MedievalButton_99: -4468403976256831583
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
