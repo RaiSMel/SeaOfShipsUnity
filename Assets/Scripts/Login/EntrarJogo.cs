@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class EntrarJogo : MonoBehaviour
 {
-    public TMP_Text senhaStatus;
     public TMP_Text emailStatus;
+    public TMP_Text senhaStatus;
+    public TMP_Text loginInvalido;
     bool verificarSenha = true, verificarEmail = true;
     public GameObject logarStatus;
     public TMP_InputField email;
@@ -51,7 +52,7 @@ public class EntrarJogo : MonoBehaviour
 
         if(!ValidarSenha(senha.text) || !ValidarEmail(email.text))
         {
-            LoginPaineis.AbrirLoginStatus(senhaStatus, verificarSenha, emailStatus, verificarEmail, logarStatus); 
+            LoginPaineis.AbrirLoginStatus(senhaStatus, verificarSenha, emailStatus, verificarEmail, logarStatus, loginInvalido); 
             StopCoroutine(EntrarNoJogo());
         }
         else
@@ -66,7 +67,7 @@ public class EntrarJogo : MonoBehaviour
             yield return www;
             if ( www.text == "-1")
             {
-                Debug.Log("Algo deu errado!");
+                LoginPaineis.AbrirLoginStatus(senhaStatus, true, emailStatus, true, logarStatus, loginInvalido);
             }
 
             else

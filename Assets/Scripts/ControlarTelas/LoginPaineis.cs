@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class LoginPaineis : MonoBehaviour
 {
-    public static void AbrirLoginStatus(TMP_Text Senha, bool SenhaInvalida, TMP_Text Email, bool EmailInvalido, GameObject LogarStatus)
+    public static void AbrirLoginStatus(TMP_Text Senha, bool SenhaInvalida, TMP_Text Email, bool EmailInvalido, GameObject LogarStatus, TMP_Text LoginInvalido)
     {
         if (!SenhaInvalida)
         {
+            LoginInvalido.gameObject.SetActive(false);
             Senha.gameObject.SetActive(true);
         }
         else
@@ -17,6 +18,7 @@ public class LoginPaineis : MonoBehaviour
         }
         if (!EmailInvalido)
         {
+            LoginInvalido.gameObject.SetActive(false);
             Email.gameObject.SetActive(true);
         }
         else
@@ -24,6 +26,12 @@ public class LoginPaineis : MonoBehaviour
             Email.gameObject.SetActive(false);
         }
         LogarStatus.SetActive(true);
+
+        if(SenhaInvalida && EmailInvalido) 
+        {
+            LoginInvalido.gameObject.SetActive(true);
+        }
+
     }
     public static void FecharLoginStatus(GameObject LogarStatus)
     {

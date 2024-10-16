@@ -1,0 +1,4 @@
+repository "SeaOfShipsUnity@SeaOfShips@cloud"
+  path "/"
+    br "/main"
+    co "/main"
