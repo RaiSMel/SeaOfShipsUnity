@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 30b680b037862e3469d54418a6f1b50a
   - enabled: 1
+    path: Assets/Scenes/Perfil.unity
+    guid: b01d937c335641642a13e907f0dbcc1d
+  - enabled: 1
     path: Assets/Scenes/Online Menu.unity
     guid: 592b888b931b7c54e8523c459c1d73c1
   - enabled: 1

@@ -1848,7 +1848,6 @@ GameObject:
   m_Component:
   - component: {fileID: 809957443}
   - component: {fileID: 809957446}
-  - component: {fileID: 809957445}
   - component: {fileID: 809957444}
   - component: {fileID: 809957447}
   - component: {fileID: 809957448}
@@ -1904,36 +1903,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstInput: {fileID: 1824929599}
---- !u!114 &809957445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809957442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &809957446
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3714,7 +3683,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635164594}
-  - component: {fileID: 1635164595}
   m_Layer: 5
   m_Name: RegisterScreen
   m_TagString: Untagged
@@ -3742,20 +3710,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1635164595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635164593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8745bdc6d35ab27498c583547965dbda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadingScreen: {fileID: 0}
-  LoadingBarFill: {fileID: 0}
 --- !u!1 &1642486279
 GameObject:
   m_ObjectHideFlags: 0
