@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -166,15 +166,22 @@ public class GameManager : MonoBehaviour
             tile.GetComponent<TileScript>().SetTileColor(1, new Color32(38, 57, 76, 255));
             tile.GetComponent<TileScript>().SwitchColors(1);
             topText.text = "Errou";
-            Invoke("EndPlayerTurn", 1.0f);
+
+            if (UnityEngine.Random.value <= 0.1f) // 10% de chance de poder atirar de novo, se errar
+            {
+                topText.text = "Atire novamente!";
+                playerTurn = true;
+            }
+            else
+            {
+                playerTurn = false;
+                Invoke("EndPlayerTurn", 1.0f);
+            }
         }
         else if (hitCount > 0)
         {
-                playerTurn = true;
+            playerTurn = true;
         }
-
-
-
     }
 
     public void EnemyHitPlayer(Vector3 tile, int tileNum, GameObject hitObj)
@@ -191,63 +198,63 @@ public class GameManager : MonoBehaviour
             {
                 GameOver(0);
             }
-            
+
         }
     }
 
-        private void EndPlayerTurn()
-        {
-            for (int i = 0; i < ships.Length; i++) ships[i].SetActive(true);
-            foreach (GameObject fire in playerFires) fire.SetActive(true);
-            foreach (GameObject fire in enemyFires) fire.SetActive(false);
-            enemyShipText.text = enemyShipCount.ToString();
-            topText.text = "Turno do Inimigo";
-            enemyScript.NPCTurn();
-            ColorAllTiles(0);
-            playerTurn = false;
-        }
-
-        public void EndEnemyTurn()
-        {
-             for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
-             foreach (GameObject fire in playerFires) fire.SetActive(false);
-             foreach (GameObject fire in enemyFires) fire.SetActive(true);
-             playerShipText.text = playerShipCount.ToString();
-             topText.text = "Selecione onde atirar";
-             playerTurn = true;
-             ColorAllTiles(1);
-        }
-
-        private void ColorAllTiles(int colorIndex)
-        {
-            foreach (TileScript tileScript in allTileScripts)
-            {
-                tileScript.SwitchColors(colorIndex);
-            }
-        }
-
-        public void GameOver(int winner)
-        {
-            if (winner == 1)
-            {
-               SceneManager.LoadScene("YouWin");
-            }
-            else
-            {
-               SceneManager.LoadScene("YouLose");
-            }
+    private void EndPlayerTurn()
+    {
+        for (int i = 0; i < ships.Length; i++) ships[i].SetActive(true);
+        foreach (GameObject fire in playerFires) fire.SetActive(true);
+        foreach (GameObject fire in enemyFires) fire.SetActive(false);
+        enemyShipText.text = enemyShipCount.ToString();
+        topText.text = "Turno do Inimigo";
+        enemyScript.NPCTurn();
+        ColorAllTiles(0);
+        playerTurn = false;
     }
 
-        void ReturnToMainMenu()
+    public void EndEnemyTurn()
+    {
+        for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
+        foreach (GameObject fire in playerFires) fire.SetActive(false);
+        foreach (GameObject fire in enemyFires) fire.SetActive(true);
+        playerShipText.text = playerShipCount.ToString();
+        topText.text = "Selecione onde atirar";
+        playerTurn = true;
+        ColorAllTiles(1);
+    }
+
+    private void ColorAllTiles(int colorIndex)
+    {
+        foreach (TileScript tileScript in allTileScripts)
         {
-            SceneManager.LoadScene("Menu");
-
+            tileScript.SwitchColors(colorIndex);
         }
+    }
 
-        void ReplayClicked()
+    public void GameOver(int winner)
+    {
+        if (winner == 1)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("YouWin");
         }
+        else
+        {
+            SceneManager.LoadScene("YouLose");
+        }
+    }
 
- 
+    void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+
+    }
+
+    void ReplayClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
 }
