@@ -13,10 +13,8 @@ public class ChangeInput : MonoBehaviour
 
     void Start()
     {
-
         system = EventSystem.current;
         firstInput.Select();
-
     }
 
     // Update is called once per frame
