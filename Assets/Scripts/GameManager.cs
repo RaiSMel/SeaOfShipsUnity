@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public List<TileScript> allTileScripts;
     private bool playerTurn = true;
 
-
     [Header("HUD")]
     public Button nextBtn;
     public Button rotateBtn;
@@ -27,7 +26,6 @@ public class GameManager : MonoBehaviour
     public Text playerShipText;
     public Text enemyShipText;
     public Button retornarBtn;
-
 
     [Header("Objects")]
     public GameObject missilePrefab;
@@ -41,11 +39,9 @@ public class GameManager : MonoBehaviour
     private List<GameObject> enemyFires = new List<GameObject>();
     private List<GameObject> clickedTiles = new List<GameObject>();
 
-
     private int enemyShipCount = 5;
     public int playerShipCount = 5;
-
-
+    private bool hasGainedExtraShot = false; // Controle do tiro extra
 
     // Start is called before the first frame update
     void Start()
@@ -87,15 +83,19 @@ public class GameManager : MonoBehaviour
     {
         if (setupComplete && playerTurn)
         {
+            // Verifica se o tile já foi clicado
             if (!clickedTiles.Contains(tile))
             {
                 Vector3 tilePos = tile.transform.position;
                 tilePos.y += 15;
                 playerTurn = false;
                 Instantiate(missilePrefab, tilePos, missilePrefab.transform.rotation);
-
-                // Adicione o tile à lista de tiles clicados
                 clickedTiles.Add(tile);
+            }
+            else
+            {
+                // Se o tile já foi clicado
+                topText.text = "Você já atirou aqui!";
             }
         }
         else if (!setupComplete)
@@ -122,6 +122,8 @@ public class GameManager : MonoBehaviour
     {
         int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
         int hitCount = 0;
+
+        // Verifica se o tiro acerta um navio inimigo
         foreach (int[] tileNumArray in enemyShips)
         {
             if (tileNumArray.Contains(tileNum))
@@ -130,12 +132,12 @@ public class GameManager : MonoBehaviour
                 {
                     if (tileNumArray[i] == tileNum)
                     {
-                        tileNumArray[i] = -5;
+                        tileNumArray[i] = -5; // Marca o tile como atingido
                         hitCount++;
                     }
                     else if (tileNumArray[i] == -5)
                     {
-                        hitCount++;
+                        hitCount++; // Conta os hits em tiles já atingidos
                     }
                 }
                 if (hitCount == tileNumArray.Length)
@@ -167,20 +169,49 @@ public class GameManager : MonoBehaviour
             tile.GetComponent<TileScript>().SwitchColors(1);
             topText.text = "Errou";
 
-            if (UnityEngine.Random.value <= 0.1f) // 10% de chance de poder atirar de novo, se errar
+            // 10% de chance - Segundo tiro
+            if (UnityEngine.Random.value <= 0.1f)
             {
                 topText.text = "Atire novamente!";
                 playerTurn = true;
             }
             else
             {
-                playerTurn = false;
-                Invoke("EndPlayerTurn", 1.0f);
+                // 10% de chance - Tiro aleatório
+                if (!hasGainedExtraShot && UnityEngine.Random.value <= 0.1f)
+                {
+                    playerTurn = true;
+                    hasGainedExtraShot = true; // Marca que o jogador ganhou um tiro extra
+
+                    List<GameObject> availableTiles = new List<GameObject>();
+
+                    foreach (TileScript tileScript in allTileScripts)
+                    {
+                        if (!clickedTiles.Contains(tileScript.gameObject))
+                        {
+                            availableTiles.Add(tileScript.gameObject);
+                        }
+                    }
+
+                    if (availableTiles.Count > 0)
+                    {
+                        int randomIndex = UnityEngine.Random.Range(0, availableTiles.Count);
+                        GameObject randomTile = availableTiles[randomIndex];
+                        clickedTiles.Add(randomTile);
+                        CheckHit(randomTile);
+                        topText.text = "Você ganhou um novo tiro aleatório!";
+                    }
+                }
+                else
+                {
+                    playerTurn = false;
+                    Invoke("EndPlayerTurn", 1.0f);
+                }
             }
         }
         else if (hitCount > 0)
         {
-            playerTurn = true;
+            playerTurn = true; // Se acertou, o jogador continua
         }
     }
 
@@ -198,7 +229,6 @@ public class GameManager : MonoBehaviour
             {
                 GameOver(0);
             }
-
         }
     }
 
@@ -211,6 +241,7 @@ public class GameManager : MonoBehaviour
         topText.text = "Turno do Inimigo";
         enemyScript.NPCTurn();
         ColorAllTiles(0);
+        hasGainedExtraShot = false; // Reseta o tiro extra no final do turno
         playerTurn = false;
     }
 
@@ -248,13 +279,10 @@ public class GameManager : MonoBehaviour
     void ReturnToMainMenu()
     {
         SceneManager.LoadScene("Menu");
-
     }
 
     void ReplayClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-
 }
