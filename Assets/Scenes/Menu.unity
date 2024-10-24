@@ -1344,11 +1344,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 251482689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b220d3673d512b5448b2b74bffac5eda, type: 3}
+  m_Script: {fileID: 11500000, guid: c0dad5b011ce0f64d8cd507370a0aad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nomeDoJogador: {fileID: 747394151}
-  _nomeDaSala: {fileID: 142456739}
+  _nomeJogador: {fileID: 747394151}
+  _nomeSala: {fileID: 142456739}
 --- !u!1 &254865662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,7 +1955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16073283086ffa74e9c51df55fba3474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuEntrada: {fileID: 251482691}
+  _menuEntrada: {fileID: 1678561915}
   _menuLobby: {fileID: 2078899454}
 --- !u!4 &429102899
 Transform:
@@ -5041,9 +5041,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 251482689}
+      - m_Target: {fileID: 1723417163}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9027,7 +9027,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 251482691}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuEntrada, Assembly-CSharp
         m_MethodName: CriaSala
         m_Mode: 1

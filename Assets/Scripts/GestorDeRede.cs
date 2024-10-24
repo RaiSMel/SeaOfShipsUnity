@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
+
 
 public class GestorDeRede : MonoBehaviourPunCallbacks
 {
-    public TMP_InputField _nomeJogador;
-    public TMP_InputField _nomeSala;
+
 
     public const int MAXPLAYERS = 2;
     public static GestorDeRede Instancia { get; private set; }
