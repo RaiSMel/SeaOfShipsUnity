@@ -1,17 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class MenuEntrada : MonoBehaviour
 {
-    [SerializeField] private Text _nomeDoJogador;
-    [SerializeField] private Text _nomeDaSala;
+    [SerializeField] private TMP_InputField _nomeDoJogador;
+    [SerializeField] private TMP_InputField _nomeDaSala;
 
     public void CriaSala()
     {
-        GestorDeRede.Instancia.MudaNick(_nomeDoJogador.text);
-        GestorDeRede.Instancia.CriaSala(_nomeDaSala.text);
+        GestorDeRede.Instancia.MudaNick("teste");
+        GestorDeRede.Instancia.CriaSala("teste");
     }
 
     public void EntraSala()
