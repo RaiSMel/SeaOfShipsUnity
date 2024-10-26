@@ -42,6 +42,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(nomeSala);
     }
 
+
     public void MudaNick(string nickname)
     {
         PhotonNetwork.NickName = nickname;

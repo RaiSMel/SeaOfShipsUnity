@@ -13,8 +13,8 @@ public class MenuLobby : MonoBehaviourPunCallbacks
     [PunRPC]
     public void AtualizaLista()
     {
-        _listaDeJogadores.text = GestorDeRede.Instancia.ObterListaDeJogadores();
-        _comecaJogo.interactable = GestorDeRede.Instancia.DonoDaSala();
+        _listaDeJogadores.text = LobbyStarter.Instancia.ObterListaDeJogadores();
+        //_comecaJogo.interactable = LobbyStarter.Instancia.DonoDaSala();
     }
 
 }
