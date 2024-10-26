@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private List<int[]> enemyShips;
     private int shipIndex = 0;
     public List<TileScript> allTileScripts;
-    private bool playerTurn = true;
+    public bool playerTurn = true;
 
     [Header("HUD")]
     public Button nextBtn;
@@ -43,9 +43,17 @@ public class GameManager : MonoBehaviour
     public int playerShipCount = 5;
     private bool hasGainedExtraShot = false; // Controle do tiro extra
 
+    private EventosAleatorios EvAle;
+
     // Start is called before the first frame update
     void Start()
     {
+        EvAle = FindObjectOfType<EventosAleatorios>();
+
+        if (EvAle == null)
+        {
+            Debug.LogError("RandomEventsScript não encontrado! Verifique se ele está na cena.");
+        }
         shipScript = ships[shipIndex].GetComponent<ShipScript>();
         nextBtn.onClick.AddListener(NextShipClicked);
         rotateBtn.onClick.AddListener(RotateClicked);
@@ -172,35 +180,14 @@ public class GameManager : MonoBehaviour
             // 10% de chance - Segundo tiro
             if (UnityEngine.Random.value <= 0.1f)
             {
-                topText.text = "Atire novamente!";
-                playerTurn = true;
+                EvAle.SegundoTiro();
             }
             else
             {
                 // 10% de chance - Tiro aleatório
                 if (!hasGainedExtraShot && UnityEngine.Random.value <= 0.1f)
                 {
-                    playerTurn = true;
-                    hasGainedExtraShot = true; // Marca que o jogador ganhou um tiro extra
-
-                    List<GameObject> availableTiles = new List<GameObject>();
-
-                    foreach (TileScript tileScript in allTileScripts)
-                    {
-                        if (!clickedTiles.Contains(tileScript.gameObject))
-                        {
-                            availableTiles.Add(tileScript.gameObject);
-                        }
-                    }
-
-                    if (availableTiles.Count > 0)
-                    {
-                        int randomIndex = UnityEngine.Random.Range(0, availableTiles.Count);
-                        GameObject randomTile = availableTiles[randomIndex];
-                        clickedTiles.Add(randomTile);
-                        CheckHit(randomTile);
-                        topText.text = "Você ganhou um novo tiro aleatório!";
-                    }
+                    EvAle.TiroAleatorio(ref playerTurn, ref hasGainedExtraShot, clickedTiles);
                 }
                 else
                 {
