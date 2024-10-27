@@ -1,6 +1,5 @@
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -135,5 +134,15 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     public void LeftRoom()
     {
         PhotonNetwork.LeaveRoom();
+    }
+
+    [PunRPC]
+    public void ComecaJogo(string cena)
+    {
+        PhotonNetwork.LoadLevel(cena);
+    }
+    public void ChamaJogo(string cena)
+    {
+        Instancia.photonView.RPC("ComecaJogo", RpcTarget.All, "Multiplayer");
     }
 }
