@@ -50,15 +50,15 @@ public class Multiplayer : MonoBehaviourPunCallbacks
 
     public void MudaMenu(GameObject menu)
     {
-        _criarPartida.gameObject.SetActive(false);
-        _entrarPartida.gameObject.SetActive(false);
+        _criarPartida.SetActive(false);
+        _entrarPartida.SetActive(false);
         _menuLobby.gameObject.SetActive(false);
         menu.SetActive(true);
     }
     public override void OnJoinedRoom()
     {
         MudaMenu(_menuLobby.gameObject);
-        //_menuLobby.photonView.RPC("AtualizaLista", RpcTarget.All);
+        _menuLobby.photonView.RPC("AtualizaLista", RpcTarget.All);
     }
 
     public string ObterListaDeJogadores()
@@ -117,7 +117,7 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     }
     public void JoinSelectedRoom()
     {
-    
+        
         if (!string.IsNullOrEmpty(selectedRoomName))
         {
             Debug.Log(selectedRoomName);

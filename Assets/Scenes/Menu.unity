@@ -1301,14 +1301,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 251482690}
-  - component: {fileID: 251482691}
   m_Layer: 5
   m_Name: CreatePartyScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &251482690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1335,25 +1334,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.500061, y: -0.000015258789}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &251482691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251482689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a192eaebd432cdd4cbfdee4b5be4c943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomButtonPrefab: {fileID: 0}
-  roomListContainer: {fileID: 0}
-  joinRoomButton: {fileID: 0}
-  _criarPartida: {fileID: 0}
-  _entrarPartida: {fileID: 0}
-  _menuLobby: {fileID: 0}
-  _menuJogar: {fileID: 0}
 --- !u!1 &254865662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,7 +2504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 237}
+  m_AnchoredPosition: {x: 25, y: 268}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &561164867
@@ -5369,7 +5349,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2078899455}
+      - m_Target: {fileID: 1616816477}
         m_TargetAssemblyTypeName: Multiplayer, Assembly-CSharp
         m_MethodName: LeftRoom
         m_Mode: 1
@@ -6945,14 +6925,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1466043938}
-  - component: {fileID: 1466043939}
   m_Layer: 5
   m_Name: LookingPartyScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1466043938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6974,25 +6953,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.500061, y: -0.000015258789}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1466043939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466043937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a192eaebd432cdd4cbfdee4b5be4c943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomButtonPrefab: {fileID: 561164865}
-  roomListContainer: {fileID: 919753379}
-  joinRoomButton: {fileID: 1974473007}
-  _criarPartida: {fileID: 0}
-  _entrarPartida: {fileID: 0}
-  _menuLobby: {fileID: 0}
-  _menuJogar: {fileID: 0}
 --- !u!1 &1478099060
 GameObject:
   m_ObjectHideFlags: 0
@@ -7584,6 +7544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616816475}
   - component: {fileID: 1616816476}
+  - component: {fileID: 1616816477}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -7625,6 +7586,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616816474}
   m_CullTransparentMesh: 1
+--- !u!114 &1616816477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616816474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a192eaebd432cdd4cbfdee4b5be4c943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomButtonPrefab: {fileID: 561164865}
+  roomListContainer: {fileID: 919753379}
+  joinRoomButton: {fileID: 1974473007}
+  _criarPartida: {fileID: 251482689}
+  _entrarPartida: {fileID: 1466043937}
+  _menuLobby: {fileID: 2078899454}
+  _menuJogar: {fileID: 371687505}
 --- !u!1 &1665165863
 GameObject:
   m_ObjectHideFlags: 0
@@ -9375,7 +9355,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 251482691}
+      - m_Target: {fileID: 1616816477}
         m_TargetAssemblyTypeName: Multiplayer, Assembly-CSharp
         m_MethodName: CriarLobby
         m_Mode: 1
@@ -9642,7 +9622,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1466043939}
+      - m_Target: {fileID: 1616816477}
         m_TargetAssemblyTypeName: Multiplayer, Assembly-CSharp
         m_MethodName: JoinSelectedRoom
         m_Mode: 1
@@ -10338,7 +10318,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2078899453}
   - component: {fileID: 2078899454}
-  - component: {fileID: 2078899455}
   m_Layer: 5
   m_Name: Partida
   m_TagString: Untagged
@@ -10383,27 +10362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0d297bf28913b45a2547438078cec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listaDeJogadores: {fileID: 2053353915}
+  _listaDeJogadores: {fileID: 0}
   _comecaJogo: {fileID: 1929492310}
---- !u!114 &2078899455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078899452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a192eaebd432cdd4cbfdee4b5be4c943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomButtonPrefab: {fileID: 0}
-  roomListContainer: {fileID: 0}
-  joinRoomButton: {fileID: 0}
-  _criarPartida: {fileID: 0}
-  _entrarPartida: {fileID: 0}
-  _menuLobby: {fileID: 0}
-  _menuJogar: {fileID: 0}
 --- !u!1 &2084105425
 GameObject:
   m_ObjectHideFlags: 0
