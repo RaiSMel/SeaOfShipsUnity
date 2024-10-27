@@ -1350,6 +1350,10 @@ MonoBehaviour:
   roomButtonPrefab: {fileID: 0}
   roomListContainer: {fileID: 0}
   joinRoomButton: {fileID: 0}
+  _criarPartida: {fileID: 0}
+  _entrarPartida: {fileID: 0}
+  _menuLobby: {fileID: 0}
+  _menuJogar: {fileID: 0}
 --- !u!1 &254865662
 GameObject:
   m_ObjectHideFlags: 0
@@ -6719,10 +6723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176bd77f77b86c74ea77e1077e75441d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _criarPartida: {fileID: 251482689}
-  _entrarPartida: {fileID: 1466043937}
-  _menuLobby: {fileID: 2078899454}
-  _menuJogar: {fileID: 1723417163}
 --- !u!1 &1432940126
 GameObject:
   m_ObjectHideFlags: 0
@@ -6989,6 +6989,10 @@ MonoBehaviour:
   roomButtonPrefab: {fileID: 561164865}
   roomListContainer: {fileID: 919753379}
   joinRoomButton: {fileID: 1974473007}
+  _criarPartida: {fileID: 0}
+  _entrarPartida: {fileID: 0}
+  _menuLobby: {fileID: 0}
+  _menuJogar: {fileID: 0}
 --- !u!1 &1478099060
 GameObject:
   m_ObjectHideFlags: 0
@@ -10396,6 +10400,10 @@ MonoBehaviour:
   roomButtonPrefab: {fileID: 0}
   roomListContainer: {fileID: 0}
   joinRoomButton: {fileID: 0}
+  _criarPartida: {fileID: 0}
+  _entrarPartida: {fileID: 0}
+  _menuLobby: {fileID: 0}
+  _menuJogar: {fileID: 0}
 --- !u!1 &2084105425
 GameObject:
   m_ObjectHideFlags: 0

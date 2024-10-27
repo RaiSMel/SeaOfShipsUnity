@@ -13,7 +13,7 @@ public class MenuLobby : MonoBehaviourPunCallbacks
     [PunRPC]
     public void AtualizaLista()
     {
-        _listaDeJogadores.text = LobbyStarter.Instancia.ObterListaDeJogadores();
+        _listaDeJogadores.text = Multiplayer.Instancia.ObterListaDeJogadores();
         //_comecaJogo.interactable = LobbyStarter.Instancia.DonoDaSala();
     }
 

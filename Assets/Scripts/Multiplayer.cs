@@ -15,17 +15,66 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     private Dictionary<string, GameObject> roomButtons = new Dictionary<string, GameObject>();
     private string selectedRoomName; // Nome da sala selecionada
     // Start is called before the first frame update
- 
-
-    public void CriarLobby()
+    [SerializeField] private GameObject _criarPartida;
+    [SerializeField] private GameObject _entrarPartida;
+    [SerializeField] private MenuLobby _menuLobby;
+    [SerializeField] private GameObject _menuJogar;
+    public static Multiplayer Instancia { get; private set; }
+    private void Awake()
     {
-        RoomOptions salaOptions = new RoomOptions();
-        salaOptions.MaxPlayers = 2;
-        salaOptions.IsVisible = true;
-        salaOptions.IsOpen = true;
-        PhotonNetwork.CreateRoom("Room", salaOptions);
+        if (Instancia != null && Instancia != this)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        Instancia = this;
+        DontDestroyOnLoad(gameObject);
+    }
+    private void Start()
+    {
+
+        PhotonNetwork.ConnectUsingSettings(); // Conecta ao Photon Cloud
     }
 
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby(); // Entra no lobby principal ao conectar com sucesso
+        Debug.Log("Conectado ao servidor e entrando no lobby.");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        PhotonNetwork.NickName = "Rai";
+        Debug.Log("Entrou no lobby.");
+    }
+
+    public void MudaMenu(GameObject menu)
+    {
+        _criarPartida.gameObject.SetActive(false);
+        _entrarPartida.gameObject.SetActive(false);
+        _menuLobby.gameObject.SetActive(false);
+        menu.SetActive(true);
+    }
+    public override void OnJoinedRoom()
+    {
+        MudaMenu(_menuLobby.gameObject);
+        //_menuLobby.photonView.RPC("AtualizaLista", RpcTarget.All);
+    }
+
+    public string ObterListaDeJogadores()
+    {
+        var lista = "";
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            lista += player.NickName + "\n";
+        }
+        return lista;
+    }
+
+    public bool DonoDaSala()
+    {
+        return PhotonNetwork.IsMasterClient;
+    }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         // Limpa a lista para que seja atualizada com as salas disponíveis atuais
@@ -66,7 +115,6 @@ public class Multiplayer : MonoBehaviourPunCallbacks
         selectedRoomName = roomName;
         Debug.Log("Sala selecionada: " + selectedRoomName);
     }
-
     public void JoinSelectedRoom()
     {
     
@@ -76,11 +124,16 @@ public class Multiplayer : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinRoom(selectedRoomName);
         }
     }
-
+    public void CriarLobby()
+    {
+        RoomOptions salaOptions = new RoomOptions();
+        salaOptions.MaxPlayers = 2;
+        salaOptions.IsVisible = true;
+        salaOptions.IsOpen = true;
+        PhotonNetwork.CreateRoom("Room", salaOptions);
+    }
     public void LeftRoom()
     {
         PhotonNetwork.LeaveRoom();
     }
-
-
 }
