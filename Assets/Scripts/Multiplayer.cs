@@ -135,12 +135,11 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
     }
-
-    [PunRPC]
     public void ComecaJogo(string cena)
     {
         PhotonNetwork.LoadLevel(cena);
     }
+    [PunRPC]
     public void ChamaJogo(string cena)
     {
         Instancia.photonView.RPC("ComecaJogo", RpcTarget.All, "Multiplayer");
