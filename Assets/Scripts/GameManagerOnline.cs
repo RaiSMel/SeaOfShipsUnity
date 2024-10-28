@@ -560,14 +560,12 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
     {
         if (currentPlayerTurn == jogadorId - 1)
         {
-            SceneManager.LoadScene("YouWinOnline");
+            SceneManager.LoadScene("YouLose");
         }
         else
         {
-            SceneManager.LoadScene("YouLoseOnline");
+            SceneManager.LoadScene("YouWin");
         }
     }
-
-
 
 }
