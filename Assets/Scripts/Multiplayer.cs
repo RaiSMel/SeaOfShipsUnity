@@ -46,7 +46,7 @@ public class Multiplayer : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = "Rai";
         Debug.Log("Entrou no lobby.");
     }
-
+    
     public void MudaMenu(GameObject menu)
     {
         _criarPartida.SetActive(false);
@@ -116,7 +116,7 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     }
     public void JoinSelectedRoom()
     {
-        
+
         if (!string.IsNullOrEmpty(selectedRoomName))
         {
             Debug.Log(selectedRoomName);
@@ -135,13 +135,14 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
     }
+    [PunRPC]
     public void ComecaJogo(string cena)
     {
         PhotonNetwork.LoadLevel(cena);
     }
-    [PunRPC]
     public void ChamaJogo(string cena)
     {
-        Instancia.photonView.RPC("ComecaJogo", RpcTarget.All, "Multiplayer");
+        photonView.RPC("ComecaJogo", RpcTarget.All, cena);
     }
+    //CODIGO NOSSO
 }

@@ -26,10 +26,16 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
     }
-
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Conexão Bem Sucedida");
+        PhotonNetwork.JoinLobby(); // Entra no lobby principal ao conectar com sucesso
+        Debug.Log("Conectado ao servidor e entrando no lobby.");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        PhotonNetwork.NickName = "Rai";
+        Debug.Log("Entrou no lobby.");
     }
 
     public void CriaSala(string nomeSala)
@@ -71,19 +77,6 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     public void ComecaJogo(string nomeCena)
     {
         PhotonNetwork.LoadLevel(nomeCena);
-    }
-
-    public void QuickPlay()
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 2;
-
-        PhotonNetwork.JoinRandomOrCreateRoom(null, MAXPLAYERS, MatchmakingMode.FillRoom, null, null, null, roomOptions);
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        {
-            StartGame();
-        }
-
     }
 
     private void StartGame()
