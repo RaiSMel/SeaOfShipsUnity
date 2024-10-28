@@ -31,7 +31,6 @@ public class Multiplayer : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-
         PhotonNetwork.ConnectUsingSettings(); // Conecta ao Photon Cloud
     }
 
