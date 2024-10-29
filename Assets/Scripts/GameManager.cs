@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     private EventosAleatorios EvAle;
 
+    private GameAudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
         replayBtn.onClick.AddListener(ReplayClicked);
         enemyShips = enemyScript.PlaceEnemyShips();
         retornarBtn.onClick.AddListener(ReturnToMainMenu);
+        audioManager = FindObjectOfType<GameAudioManager>();
     }
 
     private void NextShipClicked()
@@ -255,10 +258,12 @@ public class GameManager : MonoBehaviour
     {
         if (winner == 1)
         {
+            audioManager.PlaySound(6);
             SceneManager.LoadScene("YouWin");
         }
         else
         {
+            audioManager.PlaySound(4);
             SceneManager.LoadScene("YouLose");
         }
     }

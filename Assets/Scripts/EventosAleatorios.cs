@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventosAleatorios : MonoBehaviour
 {
     private GameManager gameManager; // Referência ao GameManager
+    private GameAudioManager audioManager;
 
     void Start()
     {
@@ -15,6 +16,8 @@ public class EventosAleatorios : MonoBehaviour
         {
             Debug.LogWarning("GameManager não encontrado na cena. Verifique se ele está presente.");
         }
+
+        audioManager = FindObjectOfType<GameAudioManager>();
     }
 
     public void SegundoTiro()

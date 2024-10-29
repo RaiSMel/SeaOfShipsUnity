@@ -71,6 +71,8 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
     private float turnTime = 15f;
     private bool timerActive = false;
 
+    private GameAudioManager audioManager;
+
 
     private void Awake()
     {
@@ -91,7 +93,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
         shipScript = ships[shipIndex].GetComponent<ShipScriptOnline>();
         nextBtn.onClick.AddListener(NextShipClicked);
         rotateBtn.onClick.AddListener(RotateClicked);
-
+        audioManager = FindObjectOfType<GameAudioManager>();
     }
 
     void Update()
@@ -444,6 +446,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             Vector3 firePosition = hitPosition + fireOffset;
             playerFires.Add(Instantiate(firePrefab, firePosition, Quaternion.identity));
             topText.text = "Acertou";
+            audioManager.PlaySound(8);
             if (currentPlayerTurn == jogadorId - 1)
             {
                 goagain = true;
@@ -516,6 +519,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
                     }
                     else
                     {
+                        audioManager.PlaySound(8);
                         topText.text = "Acertou";
                         tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(255, 0, 0, 255));
                         tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
@@ -538,6 +542,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             {
                 tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
                 tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
+                audioManager.PlaySound(8);
                 topText.text = "Errou";
                 goagain = false;
                 currentPlayerTurn = (currentPlayerTurn + 1) % Jogadores.Count;
@@ -560,10 +565,12 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
     {
         if (currentPlayerTurn == jogadorId - 1)
         {
+            audioManager.PlaySound(6);
             SceneManager.LoadScene("YouWinOnline");
         }
         else
         {
+            audioManager.PlaySound(4);
             SceneManager.LoadScene("YouLoseOnline");
         }
     }
