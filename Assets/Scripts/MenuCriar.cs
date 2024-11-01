@@ -10,7 +10,6 @@ public class MenuCriar : MonoBehaviour
 
     public void CriaSala()
     {
-        GestorDeRede.Instancia.MudaNick(_nomeDoJogador);
         GestorDeRede.Instancia.CriaSala(_nomeDaSala.text);
     }
 
