@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     public Text playerShipText;
     public Text enemyShipText;
     public Button retornarBtn;
+    public Button DoisTiros;
+    public Button TiroAleatorio;
+    public Button Escudo;
 
     [Header("Objects")]
     public GameObject missilePrefab;
@@ -47,6 +50,9 @@ public class GameManager : MonoBehaviour
 
     private GameAudioManager audioManager;
 
+    private Perks perksManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("RandomEventsScript não encontrado! Verifique se ele está na cena.");
         }
+
         shipScript = ships[shipIndex].GetComponent<ShipScript>();
         nextBtn.onClick.AddListener(NextShipClicked);
         rotateBtn.onClick.AddListener(RotateClicked);
@@ -63,7 +70,15 @@ public class GameManager : MonoBehaviour
         enemyShips = enemyScript.PlaceEnemyShips();
         retornarBtn.onClick.AddListener(ReturnToMainMenu);
         audioManager = FindObjectOfType<GameAudioManager>();
+        perksManager = FindObjectOfType<Perks>();
+        DoisTiros.gameObject.SetActive(false);
+        TiroAleatorio.gameObject.SetActive(false);
+        Escudo.gameObject.SetActive(false);
+        DoisTiros.onClick.AddListener(perksManager.doisTiros);
+        TiroAleatorio.onClick.AddListener(perksManager.tiroAleatorio);
+        Escudo.onClick.AddListener(perksManager.escudo);
     }
+
 
     private void NextShipClicked()
     {
@@ -83,6 +98,9 @@ public class GameManager : MonoBehaviour
             {
                 rotateBtn.gameObject.SetActive(false);
                 nextBtn.gameObject.SetActive(false);
+                DoisTiros.gameObject.SetActive(true);
+                TiroAleatorio.gameObject.SetActive(true);
+                Escudo.gameObject.SetActive(true);
                 topText.text = "Selecione onde atirar";
                 setupComplete = true;
                 for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
@@ -179,6 +197,7 @@ public class GameManager : MonoBehaviour
             tile.GetComponent<TileScript>().SetTileColor(1, new Color32(38, 57, 76, 255));
             tile.GetComponent<TileScript>().SwitchColors(1);
             topText.text = "Errou";
+            audioManager.PlayPobre();
 
             // 10% de chance - Segundo tiro
             if (UnityEngine.Random.value <= 0.1f)
@@ -204,6 +223,7 @@ public class GameManager : MonoBehaviour
             playerTurn = true; // Se acertou, o jogador continua
         }
     }
+
 
     public void EnemyHitPlayer(Vector3 tile, int tileNum, GameObject hitObj)
     {
@@ -258,12 +278,12 @@ public class GameManager : MonoBehaviour
     {
         if (winner == 1)
         {
-            audioManager.PlaySound(6);
+            audioManager.PlayGanhamos();
             SceneManager.LoadScene("YouWin");
         }
         else
         {
-            audioManager.PlaySound(4);
+            audioManager.PlayNaoAcredito();
             SceneManager.LoadScene("YouLose");
         }
     }
