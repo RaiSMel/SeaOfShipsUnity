@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -446,7 +446,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             Vector3 firePosition = hitPosition + fireOffset;
             playerFires.Add(Instantiate(firePrefab, firePosition, Quaternion.identity));
             topText.text = "Acertou";
-            audioManager.PlaySound(8);
+            audioManager.PlayENoisVelho();
             if (currentPlayerTurn == jogadorId - 1)
             {
                 goagain = true;
@@ -519,7 +519,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
                     }
                     else
                     {
-                        audioManager.PlaySound(8);
+                        audioManager.PlayPodeNaoParecer();
                         topText.text = "Acertou";
                         tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(255, 0, 0, 255));
                         tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
@@ -542,7 +542,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             {
                 tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
                 tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
-                audioManager.PlaySound(8);
+                audioManager.PlayNaoAcredito();
                 topText.text = "Errou";
                 goagain = false;
                 currentPlayerTurn = (currentPlayerTurn + 1) % Jogadores.Count;
@@ -566,11 +566,11 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
         if (currentPlayerTurn == jogadorId - 1)
         {
             SceneManager.LoadScene("YouWin");
-            audioManager.PlaySound(6);
+            audioManager.PlayGanhamos();
         }
         else
         {
-            audioManager.PlaySound(4);
+            audioManager.PlayNaoAcredito();
             SceneManager.LoadScene("YouLose");
         }
     }
