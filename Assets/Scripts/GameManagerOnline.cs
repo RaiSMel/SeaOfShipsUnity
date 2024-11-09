@@ -450,7 +450,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             List<AudioClip> audiosSelecionados = new List<AudioClip>
             {
                 audioManager.podeNaoParecer,
-                audioManager.acertoMizeravi
+                audioManager.acertoMizeravi,
                 audioManager.eNoisVelho
 
             };
@@ -532,7 +532,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
                         List<AudioClip> audiosSelecionados = new List<AudioClip>
                         {
                             audioManager.podeNaoParecer,
-                            audioManager.acertoMizeravi
+                            audioManager.acertoMizeravi,
                             audioManager.eNoisVelho
 
                         };

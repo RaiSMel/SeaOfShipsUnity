@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
                     List<AudioClip> audiosSelecionados = new List<AudioClip>
                     {
                         audioManager.podeNaoParecer,
-                        audioManager.acertoMizeravi
+                        audioManager.acertoMizeravi,
                         audioManager.eNoisVelho
 
                     };
