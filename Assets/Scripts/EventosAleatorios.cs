@@ -58,4 +58,18 @@ public class EventosAleatorios : MonoBehaviour
         }
 
     }
+    public void ProtecaoBarco()
+    {
+        if (gameManager != null && gameManager.topText != null)
+        {
+            gameManager.topText.text = "Escudo destruido"; //texto de cima
+            gameManager.playerTurn = false; 
+            gameManager.Invoke("EndPlayerTurn", 1.0f);// finalza turno do jogador
+            gameManager.Protect=false; //desativa o escudo apos o acerto
+        }
+        else
+        {
+            Debug.LogWarning("topText ou GameManager não está atribuído.");
+        }
+    }
 }
