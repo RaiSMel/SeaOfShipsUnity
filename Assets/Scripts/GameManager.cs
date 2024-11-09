@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public GameObject woodDock;
 
     private bool setupComplete = false;
+    public bool Protect = false; // nova variavel que ira afetar o código a depender do escudo
 
     private List<GameObject> playerFires = new List<GameObject>();
     private List<GameObject> enemyFires = new List<GameObject>();
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
                 tilePos.y += 15;
                 playerTurn = false;
                 Instantiate(missilePrefab, tilePos, missilePrefab.transform.rotation);
-                clickedTiles.Add(tile);
+                //clickedTiles.Add(tile); Por razoes de praticidade esse metodo foi movido para as açoes pós acerto do missel
             }
             else
             {
@@ -149,6 +150,9 @@ public class GameManager : MonoBehaviour
 
     public void CheckHit(GameObject tile)
     {
+        if (UnityEngine.Random.value <= 0.1f){//Chance do escudo ser ativado (10%)
+            Protect = true;
+        }
         int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
         int hitCount = 0;
 
@@ -161,8 +165,12 @@ public class GameManager : MonoBehaviour
                 {
                     if (tileNumArray[i] == tileNum)
                     {
-                        tileNumArray[i] = -5; // Marca o tile como atingido
-                        hitCount++;
+                        if(Protect==true){// Quando escudo ta ativo ele nao contara como acertado
+                            hitCount++;
+                        }else{
+                            tileNumArray[i] = -5;//Marca o tile como atingido
+                            hitCount++;
+                        }
                     }
                     else if (tileNumArray[i] == -5)
                     {
@@ -181,9 +189,13 @@ public class GameManager : MonoBehaviour
                     enemyFires.Add(Instantiate(firePrefab, tile.transform.position, Quaternion.identity));
                     tile.GetComponent<TileScript>().SetTileColor(1, new Color32(68, 0, 0, 255));
                     tile.GetComponent<TileScript>().SwitchColors(1);
+                    clickedTiles.Add(tile);//Tile adicionado ao array de tiles atingidos apos a ação
                 }
                 else
                 {
+                    if(Protect==true){
+                        EvAle.ProtecaoBarco();
+                    }else{
                     topText.text = "Acertou";
 
                     List<AudioClip> audiosSelecionados = new List<AudioClip>
@@ -198,6 +210,8 @@ public class GameManager : MonoBehaviour
 
                     tile.GetComponent<TileScript>().SetTileColor(1, new Color32(255, 0, 0, 255));
                     tile.GetComponent<TileScript>().SwitchColors(1);
+                    clickedTiles.Add(tile);//Tile adicionado ao array de tiles atingidos apos a ação
+                    }
                 }
                 break;
             }
@@ -218,6 +232,7 @@ public class GameManager : MonoBehaviour
                 audioManager.errou
             };
             audioManager.PlayRandomAudio(audiosSelecionados);
+            clickedTiles.Add(tile);
 
             // 10% de chance - Segundo tiro
             if (UnityEngine.Random.value <= 0.1f)
