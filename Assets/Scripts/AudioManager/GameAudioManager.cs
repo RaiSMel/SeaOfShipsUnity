@@ -12,6 +12,8 @@ public class GameAudioManager : MonoBehaviour
     public AudioClip ganhamos;
     public AudioClip areYou;
     public AudioClip eNoisVelho;
+    public AudioClip acertoMizeravi;
+    public AudioClip errou;
 
     public void PlayTaTriste()
     {
@@ -58,6 +60,29 @@ public class GameAudioManager : MonoBehaviour
     public void PlayENoisVelho()
     {
         audioSource.clip = eNoisVelho;
+        audioSource.Play();
+    }
+    public void PlayAcertoMizeravi()
+    {
+        audioSource.clip = acertoMizeravi;
+        audioSource.Play();
+    }
+    public void PlayErrou()
+    {
+        audioSource.clip = errou;
+        audioSource.Play();
+    }
+
+    public void PlayRandomAudio(List<AudioClip> selectedClips)
+    {
+        if (selectedClips == null || selectedClips.Count == 0)
+        {
+            Debug.LogWarning("Nenhum áudio selecionado para tocar.");
+            return;
+        }
+
+        int randomIndex = Random.Range(0, selectedClips.Count);
+        audioSource.clip = selectedClips[randomIndex];
         audioSource.Play();
     }
 }

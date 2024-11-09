@@ -446,7 +446,17 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             Vector3 firePosition = hitPosition + fireOffset;
             playerFires.Add(Instantiate(firePrefab, firePosition, Quaternion.identity));
             topText.text = "Acertou";
-            audioManager.PlayENoisVelho();
+
+            List<AudioClip> audiosSelecionados = new List<AudioClip>
+            {
+                audioManager.podeNaoParecer,
+                audioManager.acertoMizeravi
+                audioManager.eNoisVelho
+
+            };
+        
+            audioManager.PlayRandomAudio(audiosSelecionados);
+
             if (currentPlayerTurn == jogadorId - 1)
             {
                 goagain = true;
@@ -519,7 +529,15 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
                     }
                     else
                     {
-                        audioManager.PlayPodeNaoParecer();
+                        List<AudioClip> audiosSelecionados = new List<AudioClip>
+                        {
+                            audioManager.podeNaoParecer,
+                            audioManager.acertoMizeravi
+                            audioManager.eNoisVelho
+
+                        };
+
+                        audioManager.PlayRandomAudio(audiosSelecionados);
                         topText.text = "Acertou";
                         tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(255, 0, 0, 255));
                         tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
@@ -542,7 +560,19 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             {
                 tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
                 tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
-                audioManager.PlayNaoAcredito();
+
+                List<AudioClip> audiosSelecionados = new List<AudioClip>
+                {
+                    audioManager.pobre,
+                    audioManager.taTriste,
+                    audioManager.gp,
+                    audioManager.areYou,
+                    audioManager.errou
+
+                };
+
+                audioManager.PlayRandomAudio(audiosSelecionados);
+                
                 topText.text = "Errou";
                 goagain = false;
                 currentPlayerTurn = (currentPlayerTurn + 1) % Jogadores.Count;
@@ -570,8 +600,9 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
         }
         else
         {
-            audioManager.PlayNaoAcredito();
             SceneManager.LoadScene("YouLose");
+            audioManager.PlayNaoAcredito();
+
         }
     }
 

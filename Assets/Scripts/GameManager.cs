@@ -185,6 +185,17 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     topText.text = "Acertou";
+
+                    List<AudioClip> audiosSelecionados = new List<AudioClip>
+                    {
+                        audioManager.podeNaoParecer,
+                        audioManager.acertoMizeravi
+                        audioManager.eNoisVelho
+
+                    };
+
+                    audioManager.PlayRandomAudio(audiosSelecionados);
+
                     tile.GetComponent<TileScript>().SetTileColor(1, new Color32(255, 0, 0, 255));
                     tile.GetComponent<TileScript>().SwitchColors(1);
                 }
@@ -197,7 +208,16 @@ public class GameManager : MonoBehaviour
             tile.GetComponent<TileScript>().SetTileColor(1, new Color32(38, 57, 76, 255));
             tile.GetComponent<TileScript>().SwitchColors(1);
             topText.text = "Errou";
-            audioManager.PlayPobre();
+
+            List<AudioClip> audiosSelecionados = new List<AudioClip>
+            {
+                audioManager.pobre,
+                audioManager.taTriste,
+                audioManager.gp,
+                audioManager.areYou,
+                audioManager.errou
+            };
+            audioManager.PlayRandomAudio(audiosSelecionados);
 
             // 10% de chance - Segundo tiro
             if (UnityEngine.Random.value <= 0.1f)
