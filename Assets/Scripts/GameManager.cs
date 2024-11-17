@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     private int enemyShipCount = 5;
     public int playerShipCount = 5;
     private bool hasGainedExtraShot = false; // Controle do tiro extra
+    public bool tiroFileira = false;
+    public bool tiroDuplo = false;
 
     private EventosAleatorios EvAle;
 
@@ -75,8 +77,8 @@ public class GameManager : MonoBehaviour
         DoisTiros.gameObject.SetActive(false);
         TiroAleatorio.gameObject.SetActive(false);
         Escudo.gameObject.SetActive(false);
-        DoisTiros.onClick.AddListener(perksManager.doisTiros);
-        TiroAleatorio.onClick.AddListener(perksManager.tiroAleatorio);
+        DoisTiros.onClick.AddListener(perkTiroDuplo);
+        TiroAleatorio.onClick.AddListener(perkTiroFileira);
         Escudo.onClick.AddListener(perksManager.escudo);
     }
 
@@ -116,11 +118,22 @@ public class GameManager : MonoBehaviour
             // Verifica se o tile já foi clicado
             if (!clickedTiles.Contains(tile))
             {
-                Vector3 tilePos = tile.transform.position;
-                tilePos.y += 15;
-                playerTurn = false;
-                Instantiate(missilePrefab, tilePos, missilePrefab.transform.rotation);
-                //clickedTiles.Add(tile); Por razoes de praticidade esse metodo foi movido para as açoes pós acerto do missel
+                if (tiroFileira == true)
+                {
+                    TiroEmFileira(tile);
+                    playerTurn = false;
+                    Invoke("EndPlayerTurn", 1.0f);
+                    tiroFileira = false;
+
+                }
+                else
+                {
+                    Vector3 tilePos = tile.transform.position;
+                    tilePos.y += 15;
+                    playerTurn = false;
+                    Instantiate(missilePrefab, tilePos, missilePrefab.transform.rotation);
+                    // clickedTiles.Add(tile);
+                }
             }
             else
             {
@@ -150,7 +163,8 @@ public class GameManager : MonoBehaviour
 
     public void CheckHit(GameObject tile)
     {
-        if (UnityEngine.Random.value <= 0.1f){//Chance do escudo ser ativado (10%)
+        if (UnityEngine.Random.value <= 0.1f)
+        {//Chance do escudo ser ativado (10%)
             Protect = true;
         }
         int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
@@ -165,9 +179,12 @@ public class GameManager : MonoBehaviour
                 {
                     if (tileNumArray[i] == tileNum)
                     {
-                        if(Protect==true){// Quando escudo ta ativo ele nao contara como acertado
+                        if (Protect == true)
+                        {// Quando escudo ta ativo ele nao contara como acertado
                             hitCount++;
-                        }else{
+                        }
+                        else
+                        {
                             tileNumArray[i] = -5;//Marca o tile como atingido
                             hitCount++;
                         }
@@ -193,12 +210,15 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if(Protect==true){
+                    if (Protect == true)
+                    {
                         EvAle.ProtecaoBarco();
-                    }else{
-                    topText.text = "Acertou";
+                    }
+                    else
+                    {
+                        topText.text = "Acertou";
 
-                    List<AudioClip> audiosSelecionados = new List<AudioClip>
+                        List<AudioClip> audiosSelecionados = new List<AudioClip>
                     {
                         audioManager.podeNaoParecer,
                         audioManager.acertoMizeravi,
@@ -206,11 +226,11 @@ public class GameManager : MonoBehaviour
 
                     };
 
-                    audioManager.PlayRandomAudio(audiosSelecionados);
+                        audioManager.PlayRandomAudio(audiosSelecionados);
 
-                    tile.GetComponent<TileScript>().SetTileColor(1, new Color32(255, 0, 0, 255));
-                    tile.GetComponent<TileScript>().SwitchColors(1);
-                    clickedTiles.Add(tile);//Tile adicionado ao array de tiles atingidos apos a ação
+                        tile.GetComponent<TileScript>().SetTileColor(1, new Color32(255, 0, 0, 255));
+                        tile.GetComponent<TileScript>().SwitchColors(1);
+                        clickedTiles.Add(tile);//Tile adicionado ao array de tiles atingidos apos a ação
                     }
                 }
                 break;
@@ -219,37 +239,49 @@ public class GameManager : MonoBehaviour
 
         if (hitCount == 0)
         {
-            tile.GetComponent<TileScript>().SetTileColor(1, new Color32(38, 57, 76, 255));
-            tile.GetComponent<TileScript>().SwitchColors(1);
-            topText.text = "Errou";
-
-            List<AudioClip> audiosSelecionados = new List<AudioClip>
+            if (tiroDuplo == true)
             {
-                audioManager.pobre,
-                audioManager.taTriste,
-                audioManager.gp,
-                audioManager.areYou,
-                audioManager.errou
-            };
-            audioManager.PlayRandomAudio(audiosSelecionados);
-            clickedTiles.Add(tile);
-
-            // 10% de chance - Segundo tiro
-            if (UnityEngine.Random.value <= 0.1f)
-            {
+                tile.GetComponent<TileScript>().SetTileColor(1, new Color32(38, 57, 76, 255));
+                tile.GetComponent<TileScript>().SwitchColors(1);
+                topText.text = "Errou";
+                audioManager.PlayPobre();
                 EvAle.SegundoTiro();
+                tiroDuplo = false;
             }
             else
             {
-                // 10% de chance - Tiro aleatório
-                if (!hasGainedExtraShot && UnityEngine.Random.value <= 0.1f)
+                tile.GetComponent<TileScript>().SetTileColor(1, new Color32(38, 57, 76, 255));
+                tile.GetComponent<TileScript>().SwitchColors(1);
+                topText.text = "Errou";
+
+                List<AudioClip> audiosSelecionados = new List<AudioClip>
                 {
-                    EvAle.TiroAleatorio(ref playerTurn, ref hasGainedExtraShot, clickedTiles);
+                    audioManager.pobre,
+                    audioManager.taTriste,
+                    audioManager.gp,
+                    audioManager.areYou,
+                    audioManager.errou
+                };
+                audioManager.PlayRandomAudio(audiosSelecionados);
+                clickedTiles.Add(tile);
+
+                // 10% de chance - Segundo tiro
+                if (UnityEngine.Random.value <= 0.1f)
+                {
+                    EvAle.SegundoTiro();
                 }
                 else
                 {
-                    playerTurn = false;
-                    Invoke("EndPlayerTurn", 1.0f);
+                    // 10% de chance - Tiro aleatório
+                    if (!hasGainedExtraShot && UnityEngine.Random.value <= 0.1f)
+                    {
+                        EvAle.TiroAleatorio(ref playerTurn, ref hasGainedExtraShot, clickedTiles);
+                    }
+                    else
+                    {
+                        playerTurn = false;
+                        Invoke("EndPlayerTurn", 1.0f);
+                    }
                 }
             }
         }
@@ -257,6 +289,104 @@ public class GameManager : MonoBehaviour
         {
             playerTurn = true; // Se acertou, o jogador continua
         }
+    }
+
+        private void TiroEmFileira(GameObject tile)
+    {
+        topText.text = "Atirando em fileira...";
+        // Pega o número do tile clicado
+        int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
+
+        // Vê qual a linha do tile com base no número (1 a 100, com 10 tiles por linha)
+        int rowNum = (tileNum - 1) / 10;
+
+        // Pega cada tile de cada linha
+        foreach (TileScript tileScript in allTileScripts)
+        {
+            // Verifica se o tile já foi clicado
+            if (clickedTiles.Contains(tileScript.gameObject))
+            {
+                continue; // Pula para o próximo tile
+            }
+
+            // Pega o tile atual do loop
+            int currentTileNum = Int32.Parse(Regex.Match(tileScript.gameObject.name, @"\d+").Value);
+            int currentRowNum = (currentTileNum - 1) / 10; // Calcula a linha do tile atual
+
+            // Se o tile estiver na mesma linha
+            if (currentRowNum == rowNum)
+            {
+                bool isHit = false;
+                int hitCount = 0;
+
+                // Verifica se o tile atual faz parte de um navio inimigo
+                foreach (int[] tileNumArray in enemyShips)
+                {
+                    if (tileNumArray.Contains(currentTileNum))
+                    {
+                        // Atualiza o estado do navio
+                        for (int i = 0; i < tileNumArray.Length; i++)
+                        {
+                            if (tileNumArray[i] == currentTileNum)
+                            {
+                                tileNumArray[i] = -5; // Marca o tile como atingido
+                                hitCount++;
+                            }
+                            else if (tileNumArray[i] == -5)
+                            {
+                                hitCount++; // Conta os hits em tiles já atingidos
+                            }
+                        }
+
+                        // Verifica se o navio foi completamente afundado
+                        if (hitCount == tileNumArray.Length)
+                        {
+                            enemyShipCount--;
+                            enemyShipText.text = enemyShipCount.ToString();
+                            if (enemyShipCount == 0)
+                            {
+                                GameOver(1);
+                            }
+
+                            // Marca o tile como afundado
+                            tileScript.SetTileColor(1, new Color32(68, 0, 0, 255));
+                            tileScript.SwitchColors(1);
+                            isHit = true;
+                        }
+                        else
+                        {
+                            // Marca o tile como atingido
+                            tileScript.SetTileColor(1, new Color32(255, 0, 0, 255));
+                            tileScript.SwitchColors(1);
+                            isHit = true;
+                        }
+                        break;
+                    }
+                }
+                if (!isHit)
+                {
+                    tileScript.SetTileColor(1, new Color32(38, 57, 76, 255));
+                    tileScript.SwitchColors(1);                }
+
+                // Adiciona o tile clicado à lista
+                clickedTiles.Add(tileScript.gameObject);
+            }
+        }
+    }
+
+    public void perkTiroFileira()
+    {
+        tiroFileira = true;
+        Button botao = TiroAleatorio.GetComponent<Button>();
+        botao.interactable = false;
+    }
+
+    public void perkTiroDuplo()
+    {
+        tiroDuplo = true;
+        Button botao = DoisTiros.GetComponent<Button>();
+        botao.interactable = false;
+
     }
 
 
