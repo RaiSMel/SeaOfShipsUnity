@@ -15,18 +15,24 @@ public class EntrarJogo : MonoBehaviour
     public TMP_InputField email;
     public TMP_InputField senha;
 
+    public JogadorLogado _jogador;
+
+    public EntrarJogo(JogadorLogado jogador)
+    {
+        _jogador = jogador;
+    }
+
     public bool ValidarEmail(string email)
     {
         string padraoEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         return Regex.IsMatch(email, padraoEmail);
     }
 
-    // Valida senha: pelo menos 8 caracteres, uma maiúscula, uma minúscula, um número e um caractere especial
     public bool ValidarSenha(string senha)
     {
-        if (senha.Length < 8) return false;
-        else return true;
+        return senha.Length >= 8;
     }
+
     public void ChamarEntrar()
     {
         StartCoroutine(EntrarNoJogo());
@@ -36,44 +42,67 @@ public class EntrarJogo : MonoBehaviour
     {
         LoginPaineis.FecharLoginStatus(logarStatus);
     }
+
     IEnumerator EntrarNoJogo()
     {
         if (!ValidarEmail(email.text))
         {
             verificarEmail = false;
         }
-        else verificarEmail=true;
+        else verificarEmail = true;
 
         if (!ValidarSenha(senha.text))
         {
-            verificarSenha=false;
+            verificarSenha = false;
         }
-        else verificarSenha=true;
+        else verificarSenha = true;
 
-        if(!ValidarSenha(senha.text) || !ValidarEmail(email.text))
+        if (!verificarEmail || !verificarSenha)
         {
-            LoginPaineis.AbrirLoginStatus(senhaStatus, verificarSenha, emailStatus, verificarEmail, logarStatus, loginInvalido); 
-            StopCoroutine(EntrarNoJogo());
+            LoginPaineis.AbrirLoginStatus(senhaStatus, verificarSenha, emailStatus, verificarEmail, logarStatus, loginInvalido);
+            yield break; // Sai da coroutine sem continuar.
+        }
+
+        WWWForm formularioEntrar = new WWWForm();
+        formularioEntrar.AddField("Email", email.text);
+        formularioEntrar.AddField("Senha", senha.text);
+
+        WWW www = new WWW("http://localhost/BatalhaNaval/entrar.php", formularioEntrar);
+        yield return www;
+
+        string respostaServidor = www.text;
+        Debug.Log("Resposta do Servidor: " + respostaServidor);
+
+        if (respostaServidor == "-1")
+        {
+            LoginPaineis.AbrirLoginStatus(senhaStatus, true, emailStatus, true, logarStatus, loginInvalido);
         }
         else
         {
-
-            WWWForm formularioEntrar = new();
-
-            formularioEntrar.AddField("Email", email.text);
-            formularioEntrar.AddField("Senha", senha.text);
-
-            WWW www = new("http://localhost/BatalhaNaval/entrar.php", formularioEntrar);
-            yield return www;
-            if ( www.text == "-1")
+            try
             {
-                LoginPaineis.AbrirLoginStatus(senhaStatus, true, emailStatus, true, logarStatus, loginInvalido);
+                Jogador jogadorData = JsonUtility.FromJson<Jogador>(respostaServidor);
+
+                if (jogadorData != null)
+                {
+                    JogadorLogado.jogadorLogado.SetValores(jogadorData);
+
+
+                    Debug.Log("Usuário logado: " + jogadorData.usuario);
+                    SceneManager.LoadScene(2);
+                }
+                else
+                {
+                    Debug.LogError("Falha ao processar os dados do jogador.");
+                }
             }
-
-            else
+            catch (System.Exception e)
             {
-                SceneManager.LoadScene(2);
+                Debug.LogError("Erro ao processar os dados do servidor: " + e.Message);
             }
         }
     }
 }
+
+
+

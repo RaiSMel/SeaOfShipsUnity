@@ -541,6 +541,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180446055}
   m_CullTransparentMesh: 1
+--- !u!1 &280196204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 280196206}
+  - component: {fileID: 280196205}
+  m_Layer: 0
+  m_Name: JogadorLogado
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &280196205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280196204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a268a97ede02044b97f5050056cb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
+  Usuario: 
+  Email: 
+  Moeda: 0
+  TipoJogador: 
+  DataCadastro: 
+--- !u!4 &280196206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280196204}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -143.29675, y: -1261.62, z: 3136.668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432431755
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +922,7 @@ MonoBehaviour:
   logarStatus: {fileID: 167806303}
   email: {fileID: 1824929599}
   senha: {fileID: 1451817431}
+  _jogador: {fileID: 280196205}
 --- !u!1 &674866302
 GameObject:
   m_ObjectHideFlags: 0
@@ -3553,3 +3604,4 @@ SceneRoots:
   - {fileID: 491642259}
   - {fileID: 991550266}
   - {fileID: 2003170286}
+  - {fileID: 280196206}

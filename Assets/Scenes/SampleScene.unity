@@ -3555,7 +3555,6 @@ GameObject:
   - component: {fileID: 330522134}
   - component: {fileID: 330522136}
   - component: {fileID: 330522137}
-  - component: {fileID: 330522138}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3700,6 +3699,8 @@ MonoBehaviour:
   woodDock: {fileID: 0}
   Protect: 0
   playerShipCount: 5
+  tiroFileira: 0
+  tiroDuplo: 0
 --- !u!4 &330522135
 Transform:
   m_ObjectHideFlags: 0
@@ -3724,7 +3725,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 330522133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20eb9d7057dcf594ea0c784ef45b451f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2054da42246724a45a21d0efb027e427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &330522137
@@ -3736,21 +3737,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 330522133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a6e2d8da4e2ca4eb2bb8de4444cee3, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e9192c057bc07c4d99e67f5ff977a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &330522138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330522133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eae28cb4fa980a45b09931a1af13fc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  audioSource: {fileID: 195872349}
+  taTriste: {fileID: 8300000, guid: 5f0b46452b26d0a48a692421346f1fd3, type: 3}
+  podeNaoParecer: {fileID: 8300000, guid: 869ece0056109aa429c2d4bbf13264ad, type: 3}
+  pobre: {fileID: 8300000, guid: aebbab104f35c6742bb3361c4fd1ca75, type: 3}
+  naoAcredito: {fileID: 8300000, guid: e9fa16f9a9f9f7e4aa66f477ff855575, type: 3}
+  gp: {fileID: 8300000, guid: 162eb247950f94b4b8c4235c412b1823, type: 3}
+  ganhamos: {fileID: 8300000, guid: 9366993a0fae0ae47b4f545b93168c57, type: 3}
+  areYou: {fileID: 8300000, guid: 1f4a13e47956e14469ea1c98a98f5727, type: 3}
+  eNoisVelho: {fileID: 8300000, guid: bbafb65a7ed20ac4f8a5153f0e4669c9, type: 3}
+  acertoMizeravi: {fileID: 8300000, guid: 05a8614ad3afc3149ad2e315f3874c1a, type: 3}
+  errou: {fileID: 8300000, guid: b182d03d82ed69246845dbb0a92a9eca, type: 3}
 --- !u!1 &335185971
 GameObject:
   m_ObjectHideFlags: 0
@@ -16662,8 +16662,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976604100}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7060481, y: 0.0010621191, z: 0.0010589481, w: -0.70816237}
-  m_LocalPosition: {x: 5.0770245, y: -33.247055, z: 4.321722}
+  m_LocalRotation: {x: 0.44962308, y: 0.038342673, z: 0.019342123, w: -0.89218545}
+  m_LocalPosition: {x: 6.662895, y: -80.08077, z: -51.73489}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19251,6 +19251,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 595130543}
   - {fileID: 1340109258}
   - {fileID: 368308532}
   - {fileID: 2077095124}
@@ -19265,4 +19266,3 @@ SceneRoots:
   - {fileID: 856910572}
   - {fileID: 1976604102}
   - {fileID: 195872350}
-  - {fileID: 595130543}
