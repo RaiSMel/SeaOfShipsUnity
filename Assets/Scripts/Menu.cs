@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-
+using TMPro;
 
 public class Menu : MonoBehaviourPunCallbacks
 {
@@ -11,7 +11,13 @@ public class Menu : MonoBehaviourPunCallbacks
     [SerializeField] private MenuEntrada _menuEntrada;
     [SerializeField] private MenuLobby _menuLobby;
     [SerializeField] private MenuCriar _menuCriar;
+    public TextMeshProUGUI MOEDAS;
 
+    
+    private void Start()
+    {
+        MOEDAS.text = JogadorLogado.jogadorLogado.Moeda.ToString();
+    }
     public override void OnConnectedToMaster()
     {
     }

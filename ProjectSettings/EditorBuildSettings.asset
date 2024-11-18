@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Perfil.unity
     guid: b01d937c335641642a13e907f0dbcc1d
-  - enabled: 0
-    path: Assets/Scenes/Online Menu.unity
-    guid: 592b888b931b7c54e8523c459c1d73c1
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
@@ -32,10 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/YouLose.unity
     guid: 405c8585c70b0c54f8d81cedf9afbe2a
-  - enabled: 0
-    path: Assets/Scenes/YouLoseOnline.unity
-    guid: 582d302a90a982b41a1a5a4d8e9250fa
-  - enabled: 0
-    path: Assets/Scenes/YouWinOnline.unity
-    guid: 1a887852dc5716e42816ae429fbe656f
+  - enabled: 1
+    path: Assets/Scenes/Loja Pearks.unity
+    guid: b509ad63c23aca440a90fde210e8eff9
   m_configObjects: {}

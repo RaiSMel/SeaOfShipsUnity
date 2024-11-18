@@ -90,7 +90,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        PhotonNetwork.NickName = "Guest";
+        PhotonNetwork.NickName = JogadorLogado.jogadorLogado.Usuario;
         Debug.Log("Entrou no lobby.");
     }
 

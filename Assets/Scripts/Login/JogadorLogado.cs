@@ -15,6 +15,10 @@ public class JogadorLogado : MonoBehaviour
     public int Moeda;
     public string TipoJogador;
     public string DataCadastro;
+    public int PartidasParticipadas;
+    public int PartidasGanhas;
+    public int PartidasPerdidas;
+    public int BarcosAfundados;
 
     private void Awake()
     {
@@ -36,6 +40,14 @@ public class JogadorLogado : MonoBehaviour
         DataCadastro = jogador.dataCadastro;
     }
 
+    public void SetDadosJogador(DadosJogador dadosJogador)
+    {
+        PartidasParticipadas = dadosJogador.partidasParticipadas;
+        PartidasGanhas = dadosJogador.partidasGanhas;
+        PartidasPerdidas = dadosJogador.partidasPerdidas;
+        BarcosAfundados = dadosJogador.barcosAfundados;
+    }
+
 }
 
 [Serializable]
@@ -47,6 +59,14 @@ public class Jogador
     public int moeda;
     public string tipoJogador;
     public string dataCadastro;
+}
 
+[Serializable]
+public class DadosJogador
+{
+    public int partidasParticipadas;
+    public int partidasGanhas;
+    public int partidasPerdidas;
+    public int barcosAfundados;
 }
 

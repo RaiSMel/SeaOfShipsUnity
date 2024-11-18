@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -42,6 +43,26 @@ public class EntrarJogo : MonoBehaviour
     {
         LoginPaineis.FecharLoginStatus(logarStatus);
     }
+    
+    public void PegarDadosPartida(string ID_Jogador)
+    {
+        StartCoroutine(pegarDados(ID_Jogador));
+    }
+    
+    public IEnumerator pegarDados(string ID_Jogador)
+    {
+        WWWForm formIDJogador = new();
+        Debug.Log(ID_Jogador);
+        formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
+        WWW www = new WWW("http://localhost/BatalhaNaval/dadosPerfil.php", formIDJogador);
+        yield return www;
+        string respostaServidor = www.text;
+        Debug.Log(respostaServidor);
+        Debug.Log(respostaServidor);
+        DadosJogador dadosJogador = JsonUtility.FromJson<DadosJogador>(respostaServidor);
+        JogadorLogado.jogadorLogado.SetDadosJogador(dadosJogador);
+        SceneManager.LoadScene(2);
+    }
 
     IEnumerator EntrarNoJogo()
     {
@@ -69,11 +90,9 @@ public class EntrarJogo : MonoBehaviour
 
         WWW www = new WWW("http://localhost/BatalhaNaval/entrar.php", formularioEntrar);
         yield return www;
-
         string respostaServidor = www.text;
-        Debug.Log("Resposta do Servidor: " + respostaServidor);
 
-        if (respostaServidor == "-1")
+        if (respostaServidor.Contains("error"))
         {
             LoginPaineis.AbrirLoginStatus(senhaStatus, true, emailStatus, true, logarStatus, loginInvalido);
         }
@@ -86,10 +105,9 @@ public class EntrarJogo : MonoBehaviour
                 if (jogadorData != null)
                 {
                     JogadorLogado.jogadorLogado.SetValores(jogadorData);
+                    PegarDadosPartida(jogadorData.ID);
 
-
-                    Debug.Log("Usuário logado: " + jogadorData.usuario);
-                    SceneManager.LoadScene(2);
+                    Debug.Log("Usuário logado: " + jogadorData.ID);
                 }
                 else
                 {
