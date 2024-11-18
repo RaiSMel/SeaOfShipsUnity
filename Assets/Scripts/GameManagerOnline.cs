@@ -28,6 +28,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
     public Text NextTextBtn;
     public Text playerShipText;
     public Text turnTimerText;
+    public Button DoisTiros;
 
 
     [Header("Objects")]
@@ -72,6 +73,11 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
     private bool timerActive = false;
 
     private GameAudioManager audioManager;
+    private bool tiroDuplo1 = false;
+    private bool tiroDuplo2 = false;
+    public bool tiroDuplo1Usado = false;
+    public bool tiroDuplo2Usado = false;
+
 
 
     private void Awake()
@@ -87,6 +93,7 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        PhotonNetwork.ConnectUsingSettings();
         turnTimerText.gameObject.SetActive(false);
         photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
         _jogadores = new List<GameManagerOnline>();
@@ -94,6 +101,13 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
         nextBtn.onClick.AddListener(NextShipClicked);
         rotateBtn.onClick.AddListener(RotateClicked);
         audioManager = FindObjectOfType<GameAudioManager>();
+        DoisTiros.onClick.AddListener(perkTiroDuplo);
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+        PhotonNetwork.JoinRoom("12345");
     }
 
     void Update()
@@ -199,6 +213,23 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
             }
         }
 
+    }
+
+    public void perkTiroDuplo()
+    {
+        // Verifica qual jogador está jogando atualmente e ativa o tiroDuplo correspondente.
+        if (currentPlayerTurn == 0)
+        {
+            tiroDuplo1 = true;
+        }
+        else if (currentPlayerTurn == 1)
+        {
+            tiroDuplo2 = true;
+        }
+
+        // Desabilita o botão para que o jogador não possa clicar novamente.
+        Button botao = DoisTiros.GetComponent<Button>();
+        botao.interactable = false; // Desabilita o botão após o clique.
     }
 
 
@@ -558,27 +589,53 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
 
             if (hitCount == 0)
             {
-                tile.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
-                tile.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
+                // Se errou
+                var tileScript = tile.GetComponent<TileScriptOnline>();
+                tileScript.SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
+                tileScript.SwitchColors(currentPlayerTurn);
 
+                // Áudios de erro
                 List<AudioClip> audiosSelecionados = new List<AudioClip>
-                {
-                    audioManager.pobre,
-                    audioManager.taTriste,
-                    audioManager.gp,
-                    audioManager.areYou,
-                    audioManager.errou
-
-                };
+            {
+                audioManager.pobre,
+                audioManager.taTriste,
+                audioManager.gp,
+                audioManager.areYou,
+                audioManager.errou
+            };
 
                 audioManager.PlayRandomAudio(audiosSelecionados);
-                
+
                 topText.text = "Errou";
-                goagain = false;
-                currentPlayerTurn = (currentPlayerTurn + 1) % Jogadores.Count;
-                photonView.RPC("SwitchTurn", RpcTarget.All, jogadorId);
+
+                // Habilita a opção de tiro duplo se o jogador ainda não usou
+                if (currentPlayerTurn == 0 && !tiroDuplo1Usado)
+                {
+                    // Mostra a opção de usar o tiro duplo
+                    tiroDuplo1 = true;
+                    turn = true;
+                    goagain = true;
+                }
+                else if (currentPlayerTurn == 1 && !tiroDuplo2Usado)
+                {
+                    // Mostra a opção de usar o tiro duplo
+                    tiroDuplo2 = true;
+                    turn = true;
+                    goagain = true;
+                }
+                else
+                {
+                    PassarTurno();
+                }
             }
         }
+    }
+
+    private void PassarTurno()
+    {
+        goagain = false;
+        currentPlayerTurn = (currentPlayerTurn + 1) % Jogadores.Count; // Passa para o próximo jogador.
+        photonView.RPC("SwitchTurn", RpcTarget.All, currentPlayerTurn);
     }
 
 
