@@ -61,6 +61,20 @@ public class EntrarJogo : MonoBehaviour
         Debug.Log(respostaServidor);
         DadosJogador dadosJogador = JsonUtility.FromJson<DadosJogador>(respostaServidor);
         JogadorLogado.jogadorLogado.SetDadosJogador(dadosJogador);
+        PegarPerks(ID_Jogador);
+    }
+    public void PegarPerks(string ID_Jogador)
+    {
+        StartCoroutine(RequestPerks(ID_Jogador));
+    }
+    public IEnumerator RequestPerks(string ID_Jogador)
+    {
+        WWWForm formIDJogador = new();
+        Debug.Log(ID_Jogador);
+        formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
+        WWW www = new WWW("http://localhost/BatalhaNaval/consultaPerks.php", formIDJogador);
+        yield return www;
+        JogadorLogado.jogadorLogado.perks = www.text;
         SceneManager.LoadScene(2);
     }
 
@@ -106,7 +120,7 @@ public class EntrarJogo : MonoBehaviour
                 {
                     JogadorLogado.jogadorLogado.SetValores(jogadorData);
                     PegarDadosPartida(jogadorData.ID);
-
+                     
                     Debug.Log("Usuário logado: " + jogadorData.ID);
                 }
                 else

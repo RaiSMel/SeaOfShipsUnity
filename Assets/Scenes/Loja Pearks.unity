@@ -248,6 +248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Moedas: {fileID: 443612908}
+  BtnFileira: {fileID: 1287995940}
+  BtnDuasVezes: {fileID: 244807705}
+  BtnEscudo: {fileID: 304093309}
 --- !u!114 &8284315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1366,16 +1369,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8284314}
         m_TargetAssemblyTypeName: Loja, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 3
+        m_MethodName: ComprarPerk
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2000
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &244807708
@@ -1574,16 +1577,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8284314}
         m_TargetAssemblyTypeName: Loja, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 3
+        m_MethodName: ComprarPerk
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2000
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &304093312
@@ -3304,7 +3307,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 542106005}
   m_OnClick:
     m_PersistentCalls:
@@ -3753,7 +3756,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 552713889}
   m_OnClick:
     m_PersistentCalls:
@@ -6355,16 +6358,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8284314}
         m_TargetAssemblyTypeName: Loja, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 3
+        m_MethodName: ComprarPerk
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2000
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1287995943

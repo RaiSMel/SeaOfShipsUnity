@@ -86,7 +86,7 @@ public class Cadastro : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Erro");
+                    Debug.Log(www.text);
                 }
 
             }

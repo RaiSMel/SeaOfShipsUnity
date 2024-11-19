@@ -19,6 +19,7 @@ public class JogadorLogado : MonoBehaviour
     public int PartidasGanhas;
     public int PartidasPerdidas;
     public int BarcosAfundados;
+    public string perks;
 
     private void Awake()
     {
