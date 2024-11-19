@@ -50,7 +50,7 @@ public class ShipScriptOnline : MonoBehaviour
     {
         if (clickedTile == null) return;
         touchTiles.Clear();
-        transform.localEulerAngles += new Vector3(0, 0, nextZRotation);
+        transform.localEulerAngles += new Vector3(0, nextZRotation, 0);
         nextZRotation *= -1;
         float temp = xOffset;
         xOffset = zOffset;

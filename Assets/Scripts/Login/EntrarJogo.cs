@@ -79,7 +79,7 @@ public class EntrarJogo : MonoBehaviour
 
     public void Visitante()
     {
-        JogadorLogado.jogadorLogado.SetValores(JsonUtility.FromJson<Jogador>("{\"status\":\"success\",\"ID\":\"24\",\"usuario\":\"\",\"email\":\"\",\"moeda\":\"500\",\"tipoJogador\":\"Marinha\",\"dataCadastro\":\"2024-11-19\"}"));
+        JogadorLogado.jogadorLogado.SetValores(JsonUtility.FromJson<Jogador>("{\"status\":\"success\",\"ID\":\"24\",\"usuario\":\"\",\"email\":\"\",\"moeda\":\"500\",\"tipoJogador\":\"Padrao\",\"dataCadastro\":\"2024-11-19\"}"));
         JogadorLogado.jogadorLogado.Usuario = email.text;
         SceneManager.LoadScene(2);
     }

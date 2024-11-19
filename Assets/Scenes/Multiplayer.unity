@@ -7871,7 +7871,7 @@ MonoBehaviour:
   TiroAleatorio: {fileID: 0}
   missilePrefab: {fileID: 135746, guid: aa64b9ae639024c5097e12b27ac1d84c, type: 3}
   firePrefab: {fileID: 7629157345637087946, guid: 9cb9768122210d644af38d2cfb7e426e, type: 3}
-  woodDock: {fileID: 0}
+  woodDock: {fileID: 635561409}
   playerShipCount: 5
   _localizacaoPrefab: Bomb
 --- !u!4 &768329872
@@ -7940,7 +7940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9192c057bc07c4d99e67f5ff977a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 2084341370}
   taTriste: {fileID: 8300000, guid: 5f0b46452b26d0a48a692421346f1fd3, type: 3}
   podeNaoParecer: {fileID: 8300000, guid: 869ece0056109aa429c2d4bbf13264ad, type: 3}
   pobre: {fileID: 8300000, guid: aebbab104f35c6742bb3361c4fd1ca75, type: 3}
@@ -18932,8 +18932,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976604100}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4093292, y: -0.018143807, z: -0.008183532, w: 0.91216964}
-  m_LocalPosition: {x: 9.508902, y: -27.006245, z: 2.829055}
+  m_LocalRotation: {x: -0.033301957, y: 0.0026735885, z: 0.000050138173, w: 0.9994418}
+  m_LocalPosition: {x: 190.49567, y: -72.11432, z: -268.58405}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
