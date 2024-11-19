@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using JetBrains.Annotations;
 using TMPro;
 
 public class MenuLobby : MonoBehaviourPunCallbacks

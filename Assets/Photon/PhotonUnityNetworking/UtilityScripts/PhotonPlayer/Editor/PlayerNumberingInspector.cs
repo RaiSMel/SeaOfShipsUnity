@@ -9,16 +9,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
-
-using Photon.Pun;
 using Photon.Realtime;
 
 namespace Photon.Pun.UtilityScripts
 {
-	[CustomEditor(typeof(PlayerNumbering))]
+    [CustomEditor(typeof(PlayerNumbering))]
 	public class PlayerNumberingInspector : Editor {
 
 	 	int localPlayerIndex;

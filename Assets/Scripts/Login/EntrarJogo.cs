@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class EntrarJogo : MonoBehaviour
 {
     public TMP_Text emailStatus;
@@ -54,7 +53,7 @@ public class EntrarJogo : MonoBehaviour
         WWWForm formIDJogador = new();
         Debug.Log(ID_Jogador);
         formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
-        WWW www = new WWW("http://localhost/BatalhaNaval/dadosPerfil.php", formIDJogador);
+        WWW www = new WWW("http://seaships.infinityfreeapp.com/dadosPerfil.php", formIDJogador);
         yield return www;
         string respostaServidor = www.text;
         Debug.Log(respostaServidor);
@@ -72,9 +71,16 @@ public class EntrarJogo : MonoBehaviour
         WWWForm formIDJogador = new();
         Debug.Log(ID_Jogador);
         formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
-        WWW www = new WWW("http://localhost/BatalhaNaval/consultaPerks.php", formIDJogador);
+        WWW www = new WWW("http://seaships.infinityfreeapp.com/consultaPerks.php", formIDJogador);
         yield return www;
         JogadorLogado.jogadorLogado.perks = www.text;
+        SceneManager.LoadScene(2);
+    }
+
+    public void Visitante()
+    {
+        JogadorLogado.jogadorLogado.SetValores(JsonUtility.FromJson<Jogador>("{\"status\":\"success\",\"ID\":\"24\",\"usuario\":\"\",\"email\":\"\",\"moeda\":\"500\",\"tipoJogador\":\"Marinha\",\"dataCadastro\":\"2024-11-19\"}"));
+        JogadorLogado.jogadorLogado.Usuario = email.text;
         SceneManager.LoadScene(2);
     }
 
@@ -102,7 +108,7 @@ public class EntrarJogo : MonoBehaviour
         formularioEntrar.AddField("Email", email.text);
         formularioEntrar.AddField("Senha", senha.text);
 
-        WWW www = new WWW("http://localhost/BatalhaNaval/entrar.php", formularioEntrar);
+        WWW www = new WWW("http://seaships.infinityfreeapp.com/entrar.php", formularioEntrar);
         yield return www;
         string respostaServidor = www.text;
 

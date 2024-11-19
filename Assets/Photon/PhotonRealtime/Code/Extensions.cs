@@ -16,17 +16,14 @@
 namespace Photon.Realtime
 {
     using System.Collections;
-	using System.Collections.Generic;
-    using ExitGames.Client.Photon;
+    using System.Collections.Generic;
 
-    #if SUPPORTED_UNITY
-    using UnityEngine;
-    using Debug = UnityEngine.Debug;
-    #endif
-    #if SUPPORTED_UNITY || NETFX_CORE
+#if SUPPORTED_UNITY
+#endif
+#if SUPPORTED_UNITY || NETFX_CORE
     using Hashtable = ExitGames.Client.Photon.Hashtable;
     using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
 
     /// <summary>

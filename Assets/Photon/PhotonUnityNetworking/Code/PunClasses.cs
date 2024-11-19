@@ -30,7 +30,6 @@ namespace Photon.Pun
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Photon.Realtime;
-    using SupportClassPun = ExitGames.Client.Photon.SupportClass;
 
 
     /// <summary>Replacement for RPC attribute with different name. Used to flag methods as remote-callable.</summary>

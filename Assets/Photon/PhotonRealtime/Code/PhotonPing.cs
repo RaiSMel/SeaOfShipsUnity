@@ -15,27 +15,23 @@
 namespace Photon.Realtime
 {
     using System;
-    using System.Collections;
-    using System.Threading;
 
-    #if NETFX_CORE
+#if NETFX_CORE
     using System.Diagnostics;
     using Windows.Foundation;
     using Windows.Networking;
     using Windows.Networking.Sockets;
     using Windows.Storage.Streams;
-    #endif
+#endif
 
-    #if !NO_SOCKET && !NETFX_CORE
-    using System.Collections.Generic;
-    using System.Diagnostics;
+#if !NO_SOCKET && !NETFX_CORE
     using System.Net.Sockets;
-    #endif
+#endif
 
-    #if UNITY_WEBGL
+#if UNITY_WEBGL
     // import UnityWebRequest
     using UnityEngine.Networking;
-    #endif
+#endif
 
     /// <summary>
     /// Abstract implementation of PhotonPing, ase for pinging servers to find the "Best Region".

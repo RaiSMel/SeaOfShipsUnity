@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -79,7 +78,7 @@ public class GameManager : MonoBehaviour
         Escudo.gameObject.SetActive(false);
         DoisTiros.onClick.AddListener(perkTiroDuplo);
         TiroAleatorio.onClick.AddListener(perkTiroFileira);
-            Escudo.onClick.AddListener(perksManager.escudo);
+        Escudo.onClick.AddListener(perksManager.escudo);
     }
 
 

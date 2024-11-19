@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Loja : MonoBehaviour
@@ -51,17 +48,6 @@ public class Loja : MonoBehaviour
 
     public void ComprarPerk( string ID_Perk)
     {
-        StartCoroutine(RequestCompraPerks(JogadorLogado.jogadorLogado.ID, ID_Perk));
-    }
-
-    public IEnumerator RequestCompraPerks(string ID_Jogador, string ID_Perk)
-    {
-        WWWForm formIDJogador = new();
-        Debug.Log(ID_Jogador);
-        formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
-        formIDJogador.AddField("ID_Perk", Int32.Parse(ID_Perk));
-        WWW www = new WWW("http://localhost/BatalhaNaval/comprarPerks.php", formIDJogador);
-        yield return www;
         Array.Resize(ref Perks, Perks.Length + 1);
         Perks[Perks.Length - 1] = ID_Perk;
         JogadorLogado.jogadorLogado.perks = string.Join(";", Perks);

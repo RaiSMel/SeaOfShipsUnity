@@ -20,21 +20,19 @@ namespace Photon.Realtime
 {
     using System;
     using System.Text;
-    using System.Collections;
     using System.Collections.Generic;
 
     using Stopwatch = System.Diagnostics.Stopwatch;
 
     using ExitGames.Client.Photon;
 
-    #if SUPPORTED_UNITY
+#if SUPPORTED_UNITY
     using UnityEngine;
-    #endif
+#endif
 
-    #if SUPPORTED_UNITY || NETFX_CORE
+#if SUPPORTED_UNITY || NETFX_CORE
     using Hashtable = ExitGames.Client.Photon.Hashtable;
-    using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
     /// <summary>
     /// Helper class to debug log basic information about Photon client and vital traffic statistics.
@@ -42,7 +40,7 @@ namespace Photon.Realtime
     /// <remarks>
     /// Set SupportLogger.Client for this to work.
     /// </remarks>
-    #if SUPPORTED_UNITY
+#if SUPPORTED_UNITY
     [DisallowMultipleComponent]
     #if PUN_2_OR_NEWER || FUSION_UNITY
 	[AddComponentMenu("")] // hide from Unity Menus and searches
