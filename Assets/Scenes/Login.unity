@@ -581,6 +581,7 @@ MonoBehaviour:
   PartidasPerdidas: 0
   BarcosAfundados: 0
   perks: 
+  visitante: 1
 --- !u!4 &280196206
 Transform:
   m_ObjectHideFlags: 0

@@ -134,6 +134,7 @@ public class EntrarJogo : MonoBehaviour
         }
 
         JogadorLogado.jogadorLogado.perks = string.Join(";", idPerks);
+        JogadorLogado.jogadorLogado.visitante = false;
         SceneManager.LoadScene(2);
     }
 
@@ -161,8 +162,8 @@ public class EntrarJogo : MonoBehaviour
         }
 
         else
-        {
-            Debug.LogError("Erro ao desserializar o JSON para Jogador.");
+        { 
+            LoginPaineis.AbrirLoginStatus(senhaStatus, verificarSenha, emailStatus, verificarEmail, logarStatus, loginInvalido);
         }
     }
 
