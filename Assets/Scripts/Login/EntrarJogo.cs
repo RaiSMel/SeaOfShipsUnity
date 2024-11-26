@@ -1,8 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class EntrarJogo : MonoBehaviour
@@ -14,6 +16,7 @@ public class EntrarJogo : MonoBehaviour
     public GameObject logarStatus;
     public TMP_InputField email;
     public TMP_InputField senha;
+   
 
     public JogadorLogado _jogador;
 
@@ -43,39 +46,7 @@ public class EntrarJogo : MonoBehaviour
         LoginPaineis.FecharLoginStatus(logarStatus);
     }
     
-    public void PegarDadosPartida(string ID_Jogador)
-    {
-        StartCoroutine(pegarDados(ID_Jogador));
-    }
-    
-    public IEnumerator pegarDados(string ID_Jogador)
-    {
-        WWWForm formIDJogador = new();
-        Debug.Log(ID_Jogador);
-        formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
-        WWW www = new WWW("http://seaships.infinityfreeapp.com/dadosPerfil.php", formIDJogador);
-        yield return www;
-        string respostaServidor = www.text;
-        Debug.Log(respostaServidor);
-        Debug.Log(respostaServidor);
-        DadosJogador dadosJogador = JsonUtility.FromJson<DadosJogador>(respostaServidor);
-        JogadorLogado.jogadorLogado.SetDadosJogador(dadosJogador);
-        PegarPerks(ID_Jogador);
-    }
-    public void PegarPerks(string ID_Jogador)
-    {
-        StartCoroutine(RequestPerks(ID_Jogador));
-    }
-    public IEnumerator RequestPerks(string ID_Jogador)
-    {
-        WWWForm formIDJogador = new();
-        Debug.Log(ID_Jogador);
-        formIDJogador.AddField("ID_Jogador", Int32.Parse(ID_Jogador));
-        WWW www = new WWW("http://seaships.infinityfreeapp.com/consultaPerks.php", formIDJogador);
-        yield return www;
-        JogadorLogado.jogadorLogado.perks = www.text;
-        SceneManager.LoadScene(2);
-    }
+ 
 
     public void Visitante()
     {
@@ -86,6 +57,10 @@ public class EntrarJogo : MonoBehaviour
 
     IEnumerator EntrarNoJogo()
     {
+
+        var BASE_URL = "https://uskyzrghjpxtirnvzgnj.supabase.co/rest/v1/";
+        var API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVza3l6cmdoanB4dGlybnZ6Z25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwNjIzMDMsImV4cCI6MjA0NzYzODMwM30.YN_2pAFhua-qP1B6IbSGEM1S8_8KwVRWk90xM0zGS7s";
+
         if (!ValidarEmail(email.text))
         {
             verificarEmail = false;
@@ -104,43 +79,106 @@ public class EntrarJogo : MonoBehaviour
             yield break; // Sai da coroutine sem continuar.
         }
 
-        WWWForm formularioEntrar = new WWWForm();
-        formularioEntrar.AddField("Email", email.text);
-        formularioEntrar.AddField("Senha", senha.text);
 
-        WWW www = new WWW("http://seaships.infinityfreeapp.com/entrar.php", formularioEntrar);
-        yield return www;
-        string respostaServidor = www.text;
 
-        if (respostaServidor.Contains("error"))
+        // Adicionando o header Authorization
+        string endpoint = BASE_URL + "jogador_stat_summary"; // Exemplo: tabela orders no schema ecommerce
+
+        // Configurar o UnityWebRequest
+        UnityWebRequest request = UnityWebRequest.Get(endpoint);
+
+        // Adicionar cabeï¿½alhos
+        request.SetRequestHeader("apiKey", API_KEY); // Autenticaï¿½ï¿½o
+        request.SetRequestHeader("Accept-Profile", "jogador_stats");
+        request.url += $"?email=eq.{email.text}&senha=eq.{senha.text}";
+        yield return request.SendWebRequest();
+
+        try
         {
-            LoginPaineis.AbrirLoginStatus(senhaStatus, true, emailStatus, true, logarStatus, loginInvalido);
+            
+            ProcessResponse(request.downloadHandler.text);
+
         }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Erro ao processar os dados do servidor: " + e.Message);
+        }
+
+    }
+
+    IEnumerator PegarPerks(string id_jogador)
+    {
+        var BASE_URL = "https://uskyzrghjpxtirnvzgnj.supabase.co/rest/v1/";
+        var API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVza3l6cmdoanB4dGlybnZ6Z25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwNjIzMDMsImV4cCI6MjA0NzYzODMwM30.YN_2pAFhua-qP1B6IbSGEM1S8_8KwVRWk90xM0zGS7s";
+
+        string endpoint = BASE_URL + $"jogadorperks?id_jogador=eq.{id_jogador}";
+        UnityWebRequest request = UnityWebRequest.Get(endpoint);
+        request.SetRequestHeader("apiKey", API_KEY); // Autenticaï¿½ï¿½o
+        request.SetRequestHeader("Accept-Profile", "public");
+        yield return request.SendWebRequest();
+        ProcessJson(request.downloadHandler.text);
+        
+    }
+
+    void ProcessJson(string json)
+    {
+        // Adiciona a chave de "items" ao JSON para compatibilidade com JsonUtility
+        string wrappedJson = $"{{\"items\":{json}}}";
+
+        JogadorPerkList perkList = JsonUtility.FromJson<JogadorPerkList>(wrappedJson);
+
+        List<int> idPerks = new List<int>();
+        foreach (var perk in perkList.items)
+        {
+            idPerks.Add(perk.id_perks);
+        }
+
+        JogadorLogado.jogadorLogado.perks = string.Join(";", idPerks);
+        SceneManager.LoadScene(2);
+    }
+
+    public void ProcessResponse(string json)
+    {
+        // Remover os escapes
+        string unescapedJson = Regex.Unescape(json);
+
+        // Remover os colchetes para tratar como array
+        if (unescapedJson.StartsWith("[") && unescapedJson.EndsWith("]"))
+        {
+            unescapedJson = unescapedJson.Substring(1, unescapedJson.Length - 2); // Remove os colchetes
+        }
+
+        // Desserializar o JSON (converter para objeto Jogador)
+        Jogador jogador = JsonUtility.FromJson<Jogador>(unescapedJson);
+
+        if (jogador != null)
+        {
+            Debug.Log(jogador);
+            JogadorLogado.jogadorLogado.SetValores(jogador);
+            
+            StartCoroutine(PegarPerks(jogador.id_jogador));
+
+        }
+
         else
         {
-            try
-            {
-                Jogador jogadorData = JsonUtility.FromJson<Jogador>(respostaServidor);
-
-                if (jogadorData != null)
-                {
-                    JogadorLogado.jogadorLogado.SetValores(jogadorData);
-                    PegarDadosPartida(jogadorData.ID);
-                     
-                    Debug.Log("Usuário logado: " + jogadorData.ID);
-                }
-                else
-                {
-                    Debug.LogError("Falha ao processar os dados do jogador.");
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("Erro ao processar os dados do servidor: " + e.Message);
-            }
+            Debug.LogError("Erro ao desserializar o JSON para Jogador.");
         }
     }
+
 }
 
 
+[System.Serializable]
+public class JogadorPerk
+{
+    public int id_jogadorperks;
+    public int id_jogador;
+    public int id_perks;
+}
 
+[System.Serializable]
+public class JogadorPerkList
+{
+    public JogadorPerk[] items;
+}

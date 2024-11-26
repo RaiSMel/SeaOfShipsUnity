@@ -7867,8 +7867,8 @@ MonoBehaviour:
   NextTextBtn: {fileID: 2089666758}
   playerShipText: {fileID: 2046669467}
   turnTimerText: {fileID: 682241002}
-  DoisTiros: {fileID: 0}
-  TiroAleatorio: {fileID: 0}
+  DoisTiros: {fileID: 902544760}
+  TiroAleatorio: {fileID: 1863639689}
   missilePrefab: {fileID: 135746, guid: aa64b9ae639024c5097e12b27ac1d84c, type: 3}
   firePrefab: {fileID: 7629157345637087946, guid: 9cb9768122210d644af38d2cfb7e426e, type: 3}
   woodDock: {fileID: 635561409}
@@ -8684,8 +8684,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856910570}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.49057, y: -30.899818, z: 5.9410152}
+  m_LocalRotation: {x: -0.67362857, y: 0.14960018, z: 0.14951023, w: 0.70816034}
+  m_LocalPosition: {x: 11.222659, y: -23.23364, z: 8.1550455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

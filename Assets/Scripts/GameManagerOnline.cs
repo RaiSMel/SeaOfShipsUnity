@@ -592,16 +592,17 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
                 var tileScript = tile.GetComponent<TileScriptOnline>();
                 tileScript.SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
                 tileScript.SwitchColors(currentPlayerTurn);
+                Debug.Log("Tile errou - " + Int16.Parse(Regex.Match(tile.name, @"\d+").Value));
 
                 // Áudios de erro
                 List<AudioClip> audiosSelecionados = new List<AudioClip>
-            {
-                audioManager.pobre,
-                audioManager.taTriste,
-                audioManager.gp,
-                audioManager.areYou,
-                audioManager.errou
-            };
+                    {
+                        audioManager.pobre,
+                        audioManager.taTriste,
+                        audioManager.gp,
+                        audioManager.areYou,
+                        audioManager.errou
+                    };
 
                 audioManager.PlayRandomAudio(audiosSelecionados);
 
@@ -624,109 +625,83 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
         }
     }
 
+    // Chamada do tiro em fileira
     private void TiroEmFileira(GameObject tile)
     {
-        topText.text = "Atirando em fileira...";
         int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
-
-        // Vê qual a linha do tile com base no número (1 a 100, com 10 tiles por linha)
         int rowNum = (tileNum - 1) / 10;
+        photonView.RPC("TiroEmFileiraRPC", RpcTarget.All, rowNum, PhotonNetwork.IsMasterClient);
+    }
+
+    [PunRPC]
+    private void TiroEmFileiraRPC(int rowNum, bool isShotByMaster)
+    {
         foreach (TileScriptOnline tileScript in allTileScripts)
         {
-            // Pega o tile atual do loop
             int currentTileNum = Int32.Parse(Regex.Match(tileScript.gameObject.name, @"\d+").Value);
-            int currentRowNum = (currentTileNum - 1) / 10; // Calcula a linha do tile atual
+            int currentRowNum = (currentTileNum - 1) / 10;
 
-            // Se o tile estiver na mesma linha
             if (currentRowNum == rowNum)
             {
-                Debug.Log($"Tile {tileScript.gameObject.name} está na mesma linha ({rowNum}) e será alterado.");
                 bool isHit = false;
                 int hitCount = 0;
 
-                // Só processa se for o jogador atirando
-                if (currentPlayerTurn == jogadorId - 1)
+                // Add to clicked tiles only for the shooting player
+                if (isShotByMaster && PhotonNetwork.IsMasterClient)
                 {
-                    foreach (int[] tileNumArray in InputShips)
+                    if (!clickedTiles.Contains(tileScript.gameObject))
+                        clickedTiles.Add(tileScript.gameObject);
+                }
+                else if (!isShotByMaster && !PhotonNetwork.IsMasterClient)
+                {
+                    if (!clickedTiles2.Contains(tileScript.gameObject))
+                        clickedTiles2.Add(tileScript.gameObject);
+                }
+
+                foreach (int[] tileNumArray in InputShips)
+                {
+                    // Resto do código permanece igual
+                    if (tileNumArray.Contains(currentTileNum))
                     {
-                        if (tileNumArray.Contains(currentTileNum))
+                        for (int i = 0; i < tileNumArray.Length; i++)
                         {
-                            for (int i = 0; i < tileNumArray.Length; i++)
+                            if (tileNumArray[i] == currentTileNum)
                             {
-                                if (tileNumArray[i] == currentTileNum)
-                                {
-                                    tileNumArray[i] = -5; // Marca o tile como acertado
-                                    hitCount++;
-                                }
-                                else if (tileNumArray[i] == -5)
-                                {
-                                    hitCount++;
-                                }
+                                tileNumArray[i] = -5;
+                                hitCount++;
                             }
-
-                            if (hitCount == tileNumArray.Length)
+                            else if (tileNumArray[i] == -5)
                             {
-                                if (currentPlayerTurn == jogadorId - 1)
-                                {
-                                    playerShipCount--;
-                                    playerShipText.text = playerShipCount.ToString();
-                                    topText.text = "Navio Afundado";
-
-                                    if (playerShipCount == 0)
-                                    {
-                                        photonView.RPC("GameOver", RpcTarget.All);
-                                    }
-                                }
-
-                                if (currentPlayerTurn == jogadorId - 1)
-                                {
-                                    tileScript.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(68, 0, 0, 255));
-                                    tileScript.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
-                                }
-                                isHit = true;
+                                hitCount++;
                             }
-                            else
-                            {
-                                if (currentPlayerTurn == jogadorId - 1)
-                                {
-                                    List<AudioClip> audiosSelecionados = new List<AudioClip>
-                                {
-                                    audioManager.podeNaoParecer,
-                                    audioManager.acertoMizeravi,
-                                    audioManager.eNoisVelho
-                                };
-
-                                    audioManager.PlayRandomAudio(audiosSelecionados);
-                                    topText.text = "Acertou";
-                                    tileScript.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(255, 0, 0, 255));
-                                    tileScript.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
-                                }
-                                isHit = true;
-                            }
-                            break;
                         }
+
+                        if (hitCount == tileNumArray.Length)
+                        {
+                            playerShipCount--;
+                            playerShipText.text = playerShipCount.ToString();
+                            topText.text = "Navio Afundado";
+                            if (playerShipCount == 0)
+                            {
+                                photonView.RPC("GameOver", RpcTarget.All);
+                            }
+                        }
+
+                        tileScript.SetTileColor(currentPlayerTurn, new Color32(68, 0, 0, 255));
+                        tileScript.SwitchColors(currentPlayerTurn);
+                        isHit = true;
+                        break;
                     }
                 }
 
                 if (!isHit)
                 {
-                    tileScript.GetComponent<TileScriptOnline>().SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
-                    tileScript.GetComponent<TileScriptOnline>().SwitchColors(currentPlayerTurn);
-                }
-
-                // Adiciona o tile clicado à lista apenas para o jogador que atirou
-                if (currentPlayerTurn == 0)
-                {
-                    clickedTiles.Add(tileScript.gameObject);
-                }
-                else if (currentPlayerTurn == 1)
-                {
-                    clickedTiles2.Add(tileScript.gameObject);
+                    tileScript.SetTileColor(currentPlayerTurn, new Color32(38, 57, 76, 255));
+                    tileScript.SwitchColors(currentPlayerTurn);
                 }
             }
         }
     }
-
 
     private void ColorAllTiles(int colorIndex)
     {
@@ -742,10 +717,12 @@ public class GameManagerOnline : MonoBehaviourPunCallbacks
         if (currentPlayerTurn == jogadorId - 1)
         {
             SceneManager.LoadScene("YouWin");
+            audioManager.PlayGanhamos();
         }
         else
         {
             SceneManager.LoadScene("YouLose");
+            audioManager.PlayNaoAcredito();
 
         }
     }

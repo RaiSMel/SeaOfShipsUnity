@@ -16,6 +16,7 @@ public class JogadorLogado : MonoBehaviour
     public int PartidasPerdidas;
     public int BarcosAfundados;
     public string perks;
+    public bool visitante = true;
 
     private void Awake()
     {
@@ -29,41 +30,32 @@ public class JogadorLogado : MonoBehaviour
     public void SetValores(Jogador jogador)
     {
 
-        ID = jogador.ID;
+        ID = jogador.id_jogador;
         Usuario = jogador.usuario;
         Email = jogador.email;
         Moeda = jogador.moeda;
-        TipoJogador = jogador.tipoJogador;
-        DataCadastro = jogador.dataCadastro;
+        TipoJogador = jogador.tipojogador;
+        DataCadastro = jogador.data;
+        PartidasParticipadas = jogador.partidas_jogadas;
+        PartidasGanhas = jogador.vitorias;
+        PartidasPerdidas = jogador.derrotas;
+        BarcosAfundados = jogador.barcos_afundados;
     }
-
-    public void SetDadosJogador(DadosJogador dadosJogador)
-    {
-        PartidasParticipadas = dadosJogador.partidasParticipadas;
-        PartidasGanhas = dadosJogador.partidasGanhas;
-        PartidasPerdidas = dadosJogador.partidasPerdidas;
-        BarcosAfundados = dadosJogador.barcosAfundados;
-    }
-
 }
 
 [Serializable]
 public class Jogador
 {
-    public string ID;
+    public string id_jogador;
     public string usuario;
     public string email;
     public int moeda;
-    public string tipoJogador;
-    public string dataCadastro;
+    public string tipojogador;
+    public string data;
+    public int partidas_jogadas;
+    public int vitorias;
+    public int derrotas;
+    public int barcos_afundados;
 }
 
-[Serializable]
-public class DadosJogador
-{
-    public int partidasParticipadas;
-    public int partidasGanhas;
-    public int partidasPerdidas;
-    public int barcosAfundados;
-}
 
